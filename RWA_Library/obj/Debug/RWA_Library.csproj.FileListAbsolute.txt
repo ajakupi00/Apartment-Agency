@@ -1,0 +1,8 @@
+C:\Users\arjan\source\repos\RWA_Project\RWA_Library\bin\Debug\RWA_Library.dll
+C:\Users\arjan\source\repos\RWA_Project\RWA_Library\bin\Debug\RWA_Library.pdb
+C:\Users\arjan\source\repos\RWA_Project\RWA_Library\bin\Debug\Microsoft.ApplicationBlocks.Data.dll
+C:\Users\arjan\source\repos\RWA_Project\RWA_Library\obj\Debug\RWA_Library.csproj.AssemblyReference.cache
+C:\Users\arjan\source\repos\RWA_Project\RWA_Library\obj\Debug\RWA_Library.csproj.CoreCompileInputs.cache
+C:\Users\arjan\source\repos\RWA_Project\RWA_Library\obj\Debug\RWA_Library.csproj.CopyComplete
+C:\Users\arjan\source\repos\RWA_Project\RWA_Library\obj\Debug\RWA_Library.dll
+C:\Users\arjan\source\repos\RWA_Project\RWA_Library\obj\Debug\RWA_Library.pdb

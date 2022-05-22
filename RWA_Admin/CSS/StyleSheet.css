@@ -1,0 +1,26 @@
+﻿#bodyContainer {
+    background-color: black;
+}
+
+#loginForm {
+    margin: auto;
+    width: 30%;
+    padding: 25px;
+}
+
+.sorter {
+    text-decoration: underline;
+}
+
+.footer-button {
+    width: 100%;
+}
+
+.myImg {
+    height: auto;
+    width: 50%;
+}
+
+.choosenPicture {
+    width: 1000px;
+}
