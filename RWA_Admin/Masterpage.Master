@@ -14,6 +14,7 @@
     <!-- JQUERY DATATABLE CSS -->
     <link href="//cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css" rel="stylesheet" />
     <link href="CSS/StyleSheet.css" rel="stylesheet" />
+    <link href="CSS/NewApartmentCSS.css" rel="stylesheet" runat="server" />
     <!-- FANCYBOX CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css" type="text/css" media="screen" />
 
@@ -52,10 +53,7 @@
             </asp:ContentPlaceHolder>
         </div>
 
-        <hr class='mt-4'>
-        <div class='text-center'>
-            <p>RWA-PROJECT-<%: DateTime.Now.Year %>&copy;</p>
-        </div>
+
 
 
         <!-- JQUERY -->
@@ -75,6 +73,11 @@
 
 
     </form>
+
+    <hr class='mt-4'>
+    <div class='text-center'>
+        <p>RWA-PROJECT-<%: DateTime.Now.Year %>&copy;</p>
+    </div>
 
 </body>
 

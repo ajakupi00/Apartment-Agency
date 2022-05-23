@@ -12,6 +12,7 @@ namespace RWA_Library.Models
         public int Id { get; set; }
         public string Path { get; set; }
         public Apartment Apartment { get; set; }
+        public string Name { get; set; }
         public bool IsRepresentative { get; set; }
     }
 }

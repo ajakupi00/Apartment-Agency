@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="mainContent" runat="server">
-
+ 
     <asp:Panel runat="server" ID="pnlApartments">
         <div class="my-2 w-100" id="divAction" runat="server">
         </div>
@@ -66,7 +66,9 @@
                 </asp:Repeater>
             </div>
         </div>
-
+        <div class="container d-flex justify-content-end mr-0">
+            <asp:Button ID="btnNewApt" Text="Add new apartment" CssClass="btn btn-outline-success px-4 mr-4" runat="server" style="border-radius: 50px;" OnClick="btnNewApt_Click"   />
+        </div>
     </asp:Panel>
 
     <%-- <div class="col-md-6">

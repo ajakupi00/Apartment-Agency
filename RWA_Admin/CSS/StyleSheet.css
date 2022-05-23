@@ -24,3 +24,8 @@
 .choosenPicture {
     width: 1000px;
 }
+
+#btnRounded:hover{
+    background-color: black;
+}
+

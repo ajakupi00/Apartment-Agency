@@ -63,6 +63,7 @@ namespace RWA_Admin
                divAction.InnerHtml = Session["lblAction"].ToString();
                 divAction.Visible = true;
             }
+
         }
 
         protected void LinkButton1_Click(object sender, EventArgs e)
@@ -122,6 +123,11 @@ namespace RWA_Admin
                 InitData();
                 LoadData();
             }
+        }
+
+        protected void btnNewApt_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("NewApartment.aspx");
         }
     }
 }
