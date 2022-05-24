@@ -31,6 +31,24 @@ namespace RWA_Library.DAL
 
         }
 
+        public IList<TagType> GetAllTagTypes()
+        {
+            var tblTypes = SqlHelper.ExecuteDataset(CS, nameof(GetAllTagTypes)).Tables[0];
+            if (tblTypes.Rows.Count == 0) return null;
+            IList<TagType> types = new List<TagType>();
+            for (int i = 0; i < tblTypes.Rows.Count; i++)
+            {
+                DataRow row = tblTypes.Rows[i];
+                types.Add(new TagType
+                {
+                    Id = (int)row[nameof(TagType.Id)],
+                    Name = row[nameof(TagType.Name)].ToString(),
+                    NameEng = row[nameof(TagType.NameEng)].ToString(),
+                });
+            }
+            return types;
+        }
+
         public IList<City> GetAllCities()
         {
             var tableCty = SqlHelper.ExecuteDataset(CS, nameof(GetAllCities)).Tables[0];
@@ -68,6 +86,7 @@ namespace RWA_Library.DAL
         }
 
 
+
         public IList<ApartmentStatus> GetAllStatuses()
         {
             var tblStatus = SqlHelper.ExecuteDataset(CS, nameof(GetAllStatuses)).Tables[0];
@@ -84,6 +103,11 @@ namespace RWA_Library.DAL
                 });
             }
             return status;
+        }
+
+        public void CreateTag(Tag tag)
+        {
+            SqlHelper.ExecuteDataset(CS, nameof(CreateTag), tag.Name, tag.NameEng, tag.Type.Id);
         }
 
         public IList<ApartmentPicture> GetPicturesByApartmentID(int id)
