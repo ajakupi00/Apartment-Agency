@@ -14,5 +14,16 @@ namespace RWA_Library.Models
         public Apartment Apartment { get; set; }
         public string Name { get; set; }
         public bool IsRepresentative { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            return obj is ApartmentPicture picture &&
+                   Name == picture.Name;
+        }
+
+        public override int GetHashCode()
+        {
+            return 539060726 + EqualityComparer<string>.Default.GetHashCode(Name);
+        }
     }
 }

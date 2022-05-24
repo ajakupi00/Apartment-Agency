@@ -17,5 +17,7 @@ namespace RWA_Library.DAL
         ApartmentStatus GetStatusByName(string name);
         void UpdateApartmentWithUser(Apartment apartment, User user, IList<ApartmentPicture> pictures, IList<Tag> apartmentTags, IList<Tag> tagsToRemove);
         void UpdateApartment(Apartment apartment, IList<ApartmentPicture> pictures, IList<Tag> apartmentTags, IList<Tag> tagsToRemove);
+        Tag GetTagByTagName(string tagName);
+        void CreateApartment(Apartment apartment, IList<ApartmentPicture> pictures, IList<Tag> tags);
     }
 }

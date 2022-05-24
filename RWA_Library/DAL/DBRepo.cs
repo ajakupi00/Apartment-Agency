@@ -4,9 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RWA_Library.DAL
 {
@@ -178,6 +177,18 @@ namespace RWA_Library.DAL
             };
         }
 
+        public City GetCityByName(string city)
+        {
+            var tbl = SqlHelper.ExecuteDataset(CS, nameof(GetCityByName), city).Tables[0];
+            if (tbl.Rows.Count == 0) return null;
+            DataRow row = tbl.Rows[0];
+            return new City
+            {
+                Id = (int)row[nameof(City.Id)],
+                Name = row[nameof(City.Name)].ToString(),
+            };
+        }
+
         public IList<Apartment> GetAllApartments()
         {
             var tableApt = SqlHelper.ExecuteDataset(CS, nameof(GetAllApartments)).Tables[0];
@@ -331,7 +342,7 @@ namespace RWA_Library.DAL
             SqlHelper.ExecuteDataset(CS, nameof(UpdateApartmentWithUser), 
                 apartment.Id, apartment.Name, apartment.Price, apartment.TotalRooms, 
                 apartment.MaxAdults, apartment.MaxChildren, user.Id, representativePicture.Id, apartment.Status.Name);
-            UpdateApartmentTags(apartment, apartmentTags, UPDATE_FLAG);
+                UpdateApartmentTags(apartment, apartmentTags, UPDATE_FLAG);
             apartmentTags.Select(t => tagsToRemove.Remove(t));
             UpdateApartmentTags(apartment, tagsToRemove, DELETE_FLAG);
             
@@ -354,6 +365,32 @@ namespace RWA_Library.DAL
             UpdateApartmentTags(apartment, apartmentTags, UPDATE_FLAG);
             apartmentTags.Select(t => tagsToRemove.Remove(t));
             UpdateApartmentTags(apartment, tagsToRemove, DELETE_FLAG);
+        }
+
+        public void CreateApartment(Apartment apartment, IList<ApartmentPicture> pictures, IList<Tag> tags)
+        {
+            var tbl = SqlHelper.ExecuteDataset(CS, nameof(CreateApartment), apartment.Name, apartment.NameEng, apartment.Owner.Name, apartment.City.Id, apartment.Address, apartment.BeachDistance ,apartment.Price, apartment.TotalRooms, apartment.MaxAdults, apartment.MaxChildren).Tables[0];
+            DataRow row = tbl.Rows[0];
+            int ApartmentID = (int)row[nameof(Apartment.Id)];
+            CreateTagForApartment(ApartmentID, tags);
+            CreatePictureForApartment(ApartmentID, pictures);
+
+        }
+
+        private void CreatePictureForApartment(int apartmentID, IList<ApartmentPicture> pictures)
+        {
+            foreach (ApartmentPicture picture in pictures)
+            {
+                SqlHelper.ExecuteDataset(CS, nameof(CreatePictureForApartment), apartmentID, picture.Name, picture.Path, picture.IsRepresentative);
+            }
+        }
+
+        private void CreateTagForApartment(int apartmentID, IList<Tag> tags)
+        {
+            foreach (Tag tag in tags)
+            {
+                SqlHelper.ExecuteDataset(CS, nameof(CreateTagForApartment), apartmentID, tag.Id);
+            }
         }
     }
 }
