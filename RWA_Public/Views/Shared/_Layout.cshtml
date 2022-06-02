@@ -1,0 +1,75 @@
+﻿@using RWA_Library.Models;
+@{ 
+    User user = ViewBag.user as User;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <style>
+        body {
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark mb-3" style="background-color: #D49B54;">
+            <a class="navbar-brand" href="/">
+                <img src="~/Images/navigator.png" width="35" height="35" class="d-inline-block align-top" id="logo" />
+                RWA Apartments
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-lg-inline-flex justify-content-between" id="navbarNav">
+                <form asp-controller="Apartment" asp-action="Filter" class="form-inline d-flex my-2 my-lg-0 w-75">
+                    <input name="serachString" class="form-control w-100" style="margin-left: 2em; margin-right:5px;" type="search" placeholder="Search apartment..." aria-label="Search">
+                    <button class="btn btn-outline-dark my-2 my-sm-0 px-lg-4" type="submit">Search</button>
+                </form>
+                <ul class="navbar-nav flex-grow-1 justify-content-end ">
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Croatian</a>
+                    </li>
+                    <li class="nav-item me-4">
+                        @*<a class="nav-link" href="@UrlHelper.">Login</a>*@
+                        @if (user is null)
+                        {
+                            @Html.ActionLink("Login", "Login", "Home", null, htmlAttributes: new { @class = "nav-link" })
+
+                        }
+                        else
+                        {
+                            <span class="nav-link active">@user.FName</span>
+                        }
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+    </header>
+    <div class="m-2 h-100">
+        @RenderBody()
+        <hr />
+        <footer class="text-center">
+            <p>&copy; @DateTime.Now.Year - Arjan Jakupi</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+</body>
+</html>

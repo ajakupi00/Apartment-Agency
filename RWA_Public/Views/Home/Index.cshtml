@@ -1,0 +1,39 @@
+﻿@using RWA_Library.DAL;
+@using RWA_Library.Models;
+@{
+    ViewBag.Title = "Home page";
+    var apts = ViewBag.apt;
+    IRepo repo = ViewBag.repo;
+
+}
+
+
+
+<div class="d-flex flex-wrap ">
+    @foreach (Apartment apartment in apts)
+    {
+        <div class="card m-2" style="width: 350px;">
+            @{
+                IList<ApartmentPicture> apartmentPictures = repo.GetPicturesByApartmentID(apartment.Id);
+                ApartmentPicture picture = apartmentPictures.FirstOrDefault(a => a.IsRepresentative);
+            }
+            <img class="card-img-top" src="~/@picture.Path" alt="Card image cap" height="200">
+            <div class="card-body">
+                <h5 class="card-title">@apartment.NameEng</h5>
+                <p class="card-text">
+                    <span class="d-block">- @apartment.City.Name</span>
+                    <span class="d-block">- @apartment.BeachDistance m from the Beach</span>
+                    <span class="d-block">- @apartment.TotalRooms Total Rooms</span>
+                    <span class="d-block">- @apartment.MaxAdults Adults</span>
+                    <span class="d-block">- @apartment.MaxChildren Children</span>
+                </p>
+                @Html.ActionLink("Reserve apartment", "Reserve", new { id = apartment.Id }, new { @class = "btn btn-outline-primary w-100" })
+            </div>
+        </div>
+        
+
+
+    }
+</div>
+
+

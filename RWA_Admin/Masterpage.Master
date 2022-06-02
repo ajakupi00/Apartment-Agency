@@ -39,7 +39,7 @@
                         <a class="nav-link" href="Tags.aspx">Tags</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Registered users</a>
+                        <a class="nav-link" href="Users.aspx">Registered users</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="Login.aspx">Log out</a>

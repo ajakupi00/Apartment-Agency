@@ -1,0 +1,76 @@
+﻿@using RWA_Library.Models;
+@{
+
+    Apartment apt = ViewBag.apt as Apartment;
+    IList<ApartmentPicture> pictures = ViewBag.pictures as IList<ApartmentPicture>;
+    ApartmentPicture rPicture = pictures.FirstOrDefault(p => p.IsRepresentative);
+    IList<Tag> tags = ViewBag.tags as IList<Tag>;
+    ViewBag.Title = $"Reserve - {apt.Name}";
+}
+
+<h2 class="mx-2 fw-normal">@apt.Name - @apt.City</h2>
+<div class="d-flex">
+    <div class="d-flex flex-column" style="height:auto; border-right: 1px solid #ccc;">
+        <div class="m-2 d-flex">
+            <div class="d-flex flex-column">
+                <img src="~/@rPicture.Path" style="width: 400px" />
+                <span class="fs-4 p-2">Price: @apt.Price €</span>
+            </div>
+            <div class="p-3 d-flex flex-column">
+                <span class="fs-5 mx-3">• @apt.City</span>
+                <span class="fs-5 mx-3">• @apt.BeachDistance m from beach</span>
+                <span class="fs-5 mx-3">• @apt.TotalRooms rooms</span>
+                <span class="fs-5 mx-3">• @apt.MaxAdults adults</span>
+                <span class="fs-5 mx-3">• @apt.MaxChildren children</span>
+                <span class="fs-5 mx-3">• Owner: @apt.Owner.Name</span>
+            </div>
+        </div>
+        <div class="container">
+            @if (tags.Count % 2 == 0)
+            {
+                for (int i = 0; i < tags.Count; i += 2)
+                {
+
+                    <div class="row">
+                        @for (int j = 0; j < 2; j++)
+                        {
+                            <span class="col fs-5">• @tags[i + j]</span>
+                        }
+                    </div>
+
+
+                }
+
+
+
+            }
+            else
+            {
+                for (int i = 0; i < tags.Count - 1; i += 2)
+                {
+
+                    <div class="row">
+                        @for (int j = 0; j < 2; j++)
+                        {
+                            <span class="col fs-5">• @tags[i + j]</span>
+                        }
+                    </div>
+
+
+
+                }
+                <div class="row">
+                    <span class="col fs-5">• @tags[tags.Count - 1]</span>
+                </div>
+            
+            }
+
+        </div>
+    </div>
+    <div class="p-3">
+        <h2>Contact Us</h2>
+    </div>
+
+
+</div>
+

@@ -8,59 +8,59 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
-        #formLogin{
+        #formLogin {
             width: 50%;
         }
 
-        #centerDiv{
+        #centerDiv {
             width: 100%;
             height: 80vh;
             display: flex;
-            flex-direction:column;
+            flex-direction: column;
             justify-content: center;
-            align-items:center;
+            align-items: center;
         }
 
-        #btnLogin{
-            width:100%;
+        #btnLogin {
+            width: 100%;
         }
 
-        h2{
+        h2 {
             padding-bottom: 45px;
         }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #D49B54;">
-            <a class="navbar-brand" href="#">
-                <img src="Images/navigator.png" width="35" height="35" class="d-inline-block align-top" id="logo" />
-                RWA Apartments
+        <a class="navbar-brand" href="#">
+            <img src="Images/navigator.png" width="35" height="35" class="d-inline-block align-top" id="logo" />
+            RWA Apartments
 
-            </a>
+        </a>
 
-            
-        </nav>
+
+    </nav>
     <div id="centerDiv">
         <form id="formLogin" runat="server">
-        <h2 class="text-center">Login</h2>
-        <div class="form-group">
-            <asp:Label Text="Username" runat="server" />
-            <asp:TextBox runat="server" class="form-control" ID="txtUsername" />
-            
+            <h2 class="text-center">Login</h2>
+            <div class="form-group">
+                <asp:Label Text="Username" runat="server" />
+                <asp:TextBox runat="server" class="form-control" ID="txtUsername" />
+
+            </div>
+            <div class="form-group">
+                <asp:Label Text="Password" runat="server" />
+                <asp:TextBox runat="server" class="form-control" ID="txtPassword" TextMode="Password" />
+            </div>
+            <asp:Button Text="Login" class="btn btn-warning" runat="server" OnClick="btnLogin_Click" ID="btnLogin" />
+        </form>
+        <hr class='mt-4'>
+        <div class='text-center'>
+            <p>RWA-PROJECT-<%: DateTime.Now.Year %>&copy;</p>
         </div>
-        <div class="form-group">
-            <asp:Label Text="Password" runat="server" />
-            <asp:TextBox runat="server" class="form-control" ID="txtPassword" TextMode="Password" />
-        </div>
-        <asp:Button Text="Login" class="btn btn-warning" runat="server" OnClick="btnLogin_Click" ID="btnLogin" />
-    </form>
-         <hr class='mt-4'>
-    <div class='text-center'>
-        <p>RWA-PROJECT-<%: DateTime.Now.Year %>&copy;</p>
     </div>
-    </div>
-    
-   
+
+
 </body>
 
 <!-- JQUERY -->
