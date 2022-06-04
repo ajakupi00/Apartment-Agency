@@ -9,6 +9,13 @@ namespace RWA_Library.Models
     [Serializable]
     public class Apartment
     {
+        private int stars;
+        private Random rnd;
+        public Apartment()
+        {
+            rnd = new Random();
+            stars = rnd.Next(1, 6);
+        }
         public int Id { get; set; }
         public DateTime CreatedAt{ get; set; }
         public DateTime DeletedAt{ get; set; }
@@ -24,6 +31,8 @@ namespace RWA_Library.Models
         public int TotalRooms{ get; set; }
         public int BeachDistance{ get; set; }
         public int NumberOfPictures { get; set; }
-
+        public int Stars { 
+            get => stars;
+        }
     }
 }

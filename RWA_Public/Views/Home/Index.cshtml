@@ -4,9 +4,9 @@
     ViewBag.Title = "Home page";
     var apts = ViewBag.apt;
     IRepo repo = ViewBag.repo;
+    string lang = ViewBag.lang as string;
 
 }
-
 
 
 <div class="d-flex flex-wrap ">
@@ -22,15 +22,15 @@
                 <h5 class="card-title">@apartment.NameEng</h5>
                 <p class="card-text">
                     <span class="d-block">- @apartment.City.Name</span>
-                    <span class="d-block">- @apartment.BeachDistance m from the Beach</span>
-                    <span class="d-block">- @apartment.TotalRooms Total Rooms</span>
-                    <span class="d-block">- @apartment.MaxAdults Adults</span>
-                    <span class="d-block">- @apartment.MaxChildren Children</span>
+                    <span class="d-block">- @apartment.BeachDistance m @RWA_Public.Resources.Lanugage.Distance</span>
+                    <span class="d-block">- @apartment.TotalRooms @RWA_Public.Resources.Lanugage.Rooms</span>
+                    <span class="d-block">- @apartment.MaxAdults @RWA_Public.Resources.Lanugage.Adults</span>
+                    <span class="d-block">- @apartment.MaxChildren @RWA_Public.Resources.Lanugage.Children</span>
+                    <span class="d-block mt-2 fw-bold px-2">@apartment.Price €</span>
                 </p>
-                @Html.ActionLink("Reserve apartment", "Reserve", new { id = apartment.Id }, new { @class = "btn btn-outline-primary w-100" })
+                @Html.ActionLink(@RWA_Public.Resources.Lanugage.Reserve, "Reserve", new { id = apartment.Id, language = lang }, new { @class = "btn btn-outline-primary w-100" })
             </div>
         </div>
-        
 
 
     }

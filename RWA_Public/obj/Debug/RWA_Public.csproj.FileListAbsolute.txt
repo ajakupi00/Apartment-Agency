@@ -79,3 +79,8 @@ C:\Users\arjan\source\repos\RWA_Project\RWA_Public\bin\Microsoft.AspNet.Friendly
 C:\Users\arjan\source\repos\RWA_Project\RWA_Public\bin\RWA_Admin.pdb
 C:\Users\arjan\source\repos\RWA_Project\RWA_Public\bin\RWA_Admin.dll.config
 C:\Users\arjan\source\repos\RWA_Project\RWA_Public\bin\Microsoft.AspNet.FriendlyUrls.xml
+C:\Users\arjan\source\repos\RWA_Project\RWA_Public\obj\Debug\RWA_Public.csproj.GenerateResource.cache
+C:\Users\arjan\source\repos\RWA_Project\RWA_Public\bin\hr\RWA_Public.resources.dll
+C:\Users\arjan\source\repos\RWA_Project\RWA_Public\obj\Debug\RWA_Public.Resources.Lanugage.resources
+C:\Users\arjan\source\repos\RWA_Project\RWA_Public\obj\Debug\RWA_Public.Resources.Lanugage.hr.resources
+C:\Users\arjan\source\repos\RWA_Project\RWA_Public\obj\Debug\hr\RWA_Public.resources.dll

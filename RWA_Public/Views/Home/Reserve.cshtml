@@ -6,23 +6,34 @@
     ApartmentPicture rPicture = pictures.FirstOrDefault(p => p.IsRepresentative);
     IList<Tag> tags = ViewBag.tags as IList<Tag>;
     ViewBag.Title = $"Reserve - {apt.Name}";
+    User user = ViewBag.user as User;
+    string lang = ViewBag.lang as string;
 }
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@("@fancyapps")/ui@4.0/dist/fancybox.css" />
 
-<h2 class="mx-2 fw-normal">@apt.Name - @apt.City</h2>
+<h2 class="mx-2 fw-normal">@((lang == "hr") ? apt.Name : apt.NameEng) - @apt.City</h2>
+<div class="d-flex stars">
+    @for (int i = 0; i < apt.Stars; i++)
+    {
+        <i class="fa-solid fa-star"></i>
+    }
+
+</div>
 <div class="d-flex">
-    <div class="d-flex flex-column" style="height:auto; border-right: 1px solid #ccc;">
+    <div class="d-flex flex-column w-50" style="height:auto; border-right: 1px solid #ccc;">
         <div class="m-2 d-flex">
             <div class="d-flex flex-column">
-                <img src="~/@rPicture.Path" style="width: 400px" />
-                <span class="fs-4 p-2">Price: @apt.Price €</span>
+                <img data-fancybox="rP" src="~/@rPicture.Path" style="width: 400px; filter: drop-shadow(0 0 0.25rem black);" id="rP" />
+                <span class="fs-4 p-2 fw-bold">@RWA_Public.Resources.Lanugage.Price: @apt.Price €</span>
             </div>
             <div class="p-3 d-flex flex-column">
                 <span class="fs-5 mx-3">• @apt.City</span>
-                <span class="fs-5 mx-3">• @apt.BeachDistance m from beach</span>
-                <span class="fs-5 mx-3">• @apt.TotalRooms rooms</span>
-                <span class="fs-5 mx-3">• @apt.MaxAdults adults</span>
-                <span class="fs-5 mx-3">• @apt.MaxChildren children</span>
-                <span class="fs-5 mx-3">• Owner: @apt.Owner.Name</span>
+                <span class="fs-5 mx-3">• @apt.BeachDistance @RWA_Public.Resources.Lanugage.Distance</span>
+                <span class="fs-5 mx-3">• @apt.TotalRooms @RWA_Public.Resources.Lanugage.Rooms</span>
+                <span class="fs-5 mx-3">• @apt.MaxAdults  @RWA_Public.Resources.Lanugage.Adults</span>
+                <span class="fs-5 mx-3">• @apt.MaxChildren  @RWA_Public.Resources.Lanugage.Children</span>
+                <span class="fs-5 mx-3">•  @RWA_Public.Resources.Lanugage.Owner: @apt.Owner.Name</span>
             </div>
         </div>
         <div class="container">
@@ -30,15 +41,19 @@
             {
                 for (int i = 0; i < tags.Count; i += 2)
                 {
-
                     <div class="row">
                         @for (int j = 0; j < 2; j++)
                         {
-                            <span class="col fs-5">• @tags[i + j]</span>
+                            if (lang == "hr")
+                            {
+                                <span class="col fs-5">• @tags[i + j].Name</span>
+                            }
+                            else
+                            {
+                                <span class="col fs-5">• @tags[i + j].NameEng</span>
+                            }
                         }
                     </div>
-
-
                 }
 
 
@@ -52,25 +67,113 @@
                     <div class="row">
                         @for (int j = 0; j < 2; j++)
                         {
-                            <span class="col fs-5">• @tags[i + j]</span>
+                            if (lang == "hr")
+                            {
+                                <span class="col fs-5">• @tags[i + j].Name</span>
+                            }
+                            else
+                            {
+                                <span class="col fs-5">• @tags[i + j].NameEng</span>
+                            }
+
                         }
                     </div>
-
-
-
                 }
-                <div class="row">
-                    <span class="col fs-5">• @tags[tags.Count - 1]</span>
-                </div>
-            
+                if (lang == "hr")
+                {
+                    <div class="row">
+                        <span class="col fs-5">• @tags[tags.Count - 1].Name</span>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <span class="col fs-5">• @tags[tags.Count - 1].NameEng</span>
+                    </div>
+                }
+
+
             }
 
         </div>
+
     </div>
-    <div class="p-3">
-        <h2>Contact Us</h2>
+
+    <div class="px-5">
+        <h2>@RWA_Public.Resources.Lanugage.ContactUs</h2>
+
+        <div class="form-group">
+            <label for="fname">@RWA_Public.Resources.Lanugage.FName</label>
+            <input type="text" class="form-control mb-2 m-0" style="width: 400px;" id="fname" value="@((user != null) ? user.FName : "")" />
+        </div>
+        <div class="form-group">
+            <label for="lname">@RWA_Public.Resources.Lanugage.LName</label>
+            <input type="text" class="form-control w-100  mb-2" id="lname" value="@((user != null) ? user.LName : "")" />
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">@RWA_Public.Resources.Lanugage.Email</label>
+            <input type="email" class="form-control w-100  mb-2" id="email" value="@((user != null) ? user.Email : "")" />
+        </div>
+        <div class="form-group">
+            <label for="phNum">@RWA_Public.Resources.Lanugage.Phone</label>
+            <input type="tel" class="form-control w-100  mb-2" id="phNum" value="@((user != null) ? user.PhoneNumber : "")" />
+        </div>
+        <div class="d-flex justify-content-around">
+            <div>
+                <label for="adults">@RWA_Public.Resources.Lanugage.Adults</label>
+                <input type="number" min="0" class="form-control w-75 m-0" id="adults">
+            </div>
+            <div>
+                <label for="children">@RWA_Public.Resources.Lanugage.Children</label>
+                <input type="number" min="0" class="form-control w-75  m-0" id="children">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="fromDate">@RWA_Public.Resources.Lanugage.From</label>
+            <input type="date" class="form-control mb-2 m-0" name="fromDate" id="fromDate" />
+        </div>
+        <div class="form-group">
+            <label for="toDate">@RWA_Public.Resources.Lanugage.To</label>
+            <input type="date" class="form-control mb-2 m-0" id="toDate" name="toDate" disabled />
+        </div>
+        <button type="submit" class="btn btn-primary">@RWA_Public.Resources.Lanugage.Reserve</button>
     </div>
 
 
 </div>
+<div class="mt-4 w-100" id="grouped-images-1">
+    <div class="pb-8 d-flex flex-wrap">
+        @foreach (ApartmentPicture picture in pictures)
+        {
+            <a data-fancybox="gallery-1" href="~/@picture.Path" class="me-1 mb-1">
+                <img class="rounded" src="~/@picture.Path" width="200" height="150" />
+            </a>
+
+
+        }
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@("@fancyapps")/ui@4.0/dist/fancybox.umd.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#fromDate').change(function () {
+            var fromDate = $('#fromDate').val();
+            $('#toDate').prop('disabled', false);
+            $("#toDate").attr("min", fromDate);
+        });
+    });
+
+</script>
+<script>
+    Fancybox.bind("#grouped-images-1 a", {
+        // Your options
+    });
+    Fancybox.bind("#rp img", {
+        // Your options
+    });
+
+
+</script>
+
+
 

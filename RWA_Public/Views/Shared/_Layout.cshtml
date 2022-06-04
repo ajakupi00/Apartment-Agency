@@ -1,6 +1,7 @@
 ﻿@using RWA_Library.Models;
-@{ 
+@{
     User user = ViewBag.user as User;
+    string lang = ViewBag.lang as string;
 }
 
 <!DOCTYPE html>
@@ -13,9 +14,22 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/7c24ff87b0.js" crossorigin="anonymous"></script>
+
     <style>
         body {
             padding: 0;
+        }
+
+        .stars {
+            padding-inline: 1em;
+            margin-top: 5em;
+            position: absolute;
+            right: 0;
+            top: 0;
         }
     </style>
 </head>
@@ -31,24 +45,37 @@
             </button>
             <div class="collapse navbar-collapse d-lg-inline-flex justify-content-between" id="navbarNav">
                 <form asp-controller="Apartment" asp-action="Filter" class="form-inline d-flex my-2 my-lg-0 w-75">
-                    <input name="serachString" class="form-control w-100" style="margin-left: 2em; margin-right:5px;" type="search" placeholder="Search apartment..." aria-label="Search">
-                    <button class="btn btn-outline-dark my-2 my-sm-0 px-lg-4" type="submit">Search</button>
+                    <input name="serachString" class="form-control w-100" style="margin-left: 2em; margin-right:5px;" type="search" placeholder="@RWA_Public.Resources.Lanugage.SearchApt" aria-label="Search">
+                    <button class="btn btn-outline-dark my-2 my-sm-0 px-lg-4" type="submit">@RWA_Public.Resources.Lanugage.Search</button>
                 </form>
                 <ul class="navbar-nav flex-grow-1 justify-content-end ">
                     <li class="nav-item">
-                        <a class="nav-link" href="">Contact</a>
+                        @Html.ActionLink(RWA_Public.Resources.Lanugage.Contact, "Index", lang, new { @class = "nav-link" })
+
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">About Us</a>
+                        @Html.ActionLink(RWA_Public.Resources.Lanugage.About, "Index", lang, new { @class = "nav-link" })
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Croatian</a>
+                        @switch (lang)
+                        {
+                            case "hr":
+                                @Html.ActionLink(RWA_Public.Resources.Lanugage.Language, "Index", new { language = "eng" }, new { @class = "nav-link" });
+
+                                break;
+                            default:
+                                @Html.ActionLink(RWA_Public.Resources.Lanugage.Language, "Index", new { language = "hr" }, new { @class = "nav-link" });
+                                break;
+
+                        }
+
                     </li>
+
+
                     <li class="nav-item me-4">
-                        @*<a class="nav-link" href="@UrlHelper.">Login</a>*@
                         @if (user is null)
                         {
-                            @Html.ActionLink("Login", "Login", "Home", null, htmlAttributes: new { @class = "nav-link" })
+                            @Html.ActionLink(RWA_Public.Resources.Lanugage.Login, "Login", "Home", lang, htmlAttributes: new { @class = "nav-link" })
 
                         }
                         else
@@ -69,7 +96,13 @@
         </footer>
     </div>
 
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
     <script src="~/Scripts/bootstrap.js"></script>
+
+
+    <script src="~/Scripts/jquery.fancybox.js"></script>
+
+
+
 </body>
 </html>
