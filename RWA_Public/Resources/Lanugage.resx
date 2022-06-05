@@ -132,6 +132,9 @@
   <data name="ContactUs" xml:space="preserve">
     <value>Contact us</value>
   </data>
+  <data name="Destination" xml:space="preserve">
+    <value>Destination</value>
+  </data>
   <data name="Distance" xml:space="preserve">
     <value>from beach</value>
   </data>
@@ -153,6 +156,9 @@
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Log out</value>
+  </data>
   <data name="Owner" xml:space="preserve">
     <value>Owner</value>
   </data>
@@ -166,13 +172,16 @@
     <value>Reserve apartment</value>
   </data>
   <data name="Rooms" xml:space="preserve">
-    <value>rooms</value>
+    <value>Rooms</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
   <data name="SearchApt" xml:space="preserve">
     <value>Search apartment...</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>Sort</value>
   </data>
   <data name="To" xml:space="preserve">
     <value>To</value>

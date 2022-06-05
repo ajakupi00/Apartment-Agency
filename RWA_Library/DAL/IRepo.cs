@@ -9,6 +9,7 @@ namespace RWA_Library.DAL
 {
     public interface IRepo
     {
+        void RegisterUser(User user, string password);
         User AuthUser(string username, string password);
         IList<User> LoadUsers();
        IList<Apartment> GetAllApartments();
@@ -22,6 +23,7 @@ namespace RWA_Library.DAL
         void CreateApartment(Apartment apartment, IList<ApartmentPicture> pictures, IList<Tag> tags);
         IList<ApartmentPicture> GetPicturesByApartmentID(int id);
         IList<Tag> GetTagsByApartmentID(int id);
+        IList<City> GetAllCities();
     }
 
 }

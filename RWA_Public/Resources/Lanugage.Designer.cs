@@ -106,6 +106,15 @@ namespace RWA_Public.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Destination.
+        /// </summary>
+        public static string Destination {
+            get {
+                return ResourceManager.GetString("Destination", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to from beach.
         /// </summary>
         public static string Distance {
@@ -169,6 +178,15 @@ namespace RWA_Public.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log out.
+        /// </summary>
+        public static string Logout {
+            get {
+                return ResourceManager.GetString("Logout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Owner.
         /// </summary>
         public static string Owner {
@@ -205,7 +223,7 @@ namespace RWA_Public.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to rooms.
+        ///   Looks up a localized string similar to Rooms.
         /// </summary>
         public static string Rooms {
             get {
@@ -228,6 +246,15 @@ namespace RWA_Public.Resources {
         public static string SearchApt {
             get {
                 return ResourceManager.GetString("SearchApt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort.
+        /// </summary>
+        public static string Sort {
+            get {
+                return ResourceManager.GetString("Sort", resourceCulture);
             }
         }
         

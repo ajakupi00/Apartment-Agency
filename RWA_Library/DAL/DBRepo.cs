@@ -1,5 +1,6 @@
 ﻿using Microsoft.ApplicationBlocks.Data;
 using RWA_Library.Models;
+using rwaLib.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -84,8 +85,6 @@ namespace RWA_Library.DAL
             }
             return tags;
         }
-
-
 
         public IList<ApartmentStatus> GetAllStatuses()
         {
@@ -415,6 +414,11 @@ namespace RWA_Library.DAL
             {
                 SqlHelper.ExecuteDataset(CS, nameof(CreateTagForApartment), apartmentID, tag.Id);
             }
+        }
+
+        public void RegisterUser(User user, string password)
+        {
+            SqlHelper.ExecuteNonQuery(CS, nameof(RegisterUser), user.Email, user.UserName, user.PhoneNumber, user.Address, Cryptography.HashPassword(password));
         }
     }
 }

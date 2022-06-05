@@ -1,7 +1,8 @@
 ﻿@using RWA_Library.Models;
 @{
     User user = ViewBag.user as User;
-    string lang = ViewBag.lang as string;
+    string lang = Response.Cookies["lang"].Value;
+    string search;
 }
 
 <!DOCTYPE html>
@@ -11,13 +12,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <script src="~/Scripts/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.13.1.min.js"></script>
     <script src="https://kit.fontawesome.com/7c24ff87b0.js" crossorigin="anonymous"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery.fancybox.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@("@fancyapps")/ui@4.0/dist/fancybox.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@("@fancyapps")/ui@4.0/dist/fancybox.umd.js"></script>
+    
+
 
     <style>
         body {
@@ -31,6 +37,20 @@
             right: 0;
             top: 0;
         }
+
+        .numControl {
+            width: 220px;
+            display: inline;
+            margin-left: 2em;
+        }
+
+        #collapseExample {
+            transition: max-height 0.75s ease-out;
+        }
+
+            #collapseExample.visible {
+                transition: max-height 0.75s ease-in;
+            }
     </style>
 </head>
 <body>
@@ -40,14 +60,15 @@
                 <img src="~/Images/navigator.png" width="35" height="35" class="d-inline-block align-top" id="logo" />
                 RWA Apartments
             </a>
+            <form class="form-inline d-flex my-lg-0 w-50" action="~/Views/Home/Reserve.cshtml">
+                <input id="searchBar" name="search" class="form-control mx-2 w-100" style="margin-left: 2em; margin-right:5px;" placeholder="@RWA_Public.Resources.Lanugage.SearchApt">
+                <button class="btn btn-outline-dark my-2 my-sm-0 px-lg-4" id="btnSearch" type="submit">@RWA_Public.Resources.Lanugage.Search</button>
+            </form>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse d-lg-inline-flex justify-content-between" id="navbarNav">
-                <form asp-controller="Apartment" asp-action="Filter" class="form-inline d-flex my-2 my-lg-0 w-75">
-                    <input name="serachString" class="form-control w-100" style="margin-left: 2em; margin-right:5px;" type="search" placeholder="@RWA_Public.Resources.Lanugage.SearchApt" aria-label="Search">
-                    <button class="btn btn-outline-dark my-2 my-sm-0 px-lg-4" type="submit">@RWA_Public.Resources.Lanugage.Search</button>
-                </form>
+
                 <ul class="navbar-nav flex-grow-1 justify-content-end ">
                     <li class="nav-item">
                         @Html.ActionLink(RWA_Public.Resources.Lanugage.Contact, "Index", lang, new { @class = "nav-link" })
@@ -80,7 +101,7 @@
                         }
                         else
                         {
-                            <span class="nav-link active">@user.FName</span>
+                            @Html.ActionLink(RWA_Public.Resources.Lanugage.Logout, "Logout", "Home", lang, htmlAttributes: new { @class = "nav-link active" })
                         }
                     </li>
                 </ul>
@@ -95,14 +116,17 @@
             <p>&copy; @DateTime.Now.Year - Arjan Jakupi</p>
         </footer>
     </div>
+    <script>
+        $(function () {
+
+            $("#searchBar").autocomplete({
+                source: "/Home/GetApartments"
+            });
+
+        });
 
 
-    <script src="~/Scripts/bootstrap.js"></script>
 
-
-    <script src="~/Scripts/jquery.fancybox.js"></script>
-
-
-
+    </script>
 </body>
 </html>
