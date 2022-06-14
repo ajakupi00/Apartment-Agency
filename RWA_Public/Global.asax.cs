@@ -1,8 +1,10 @@
+using RWA_Public.App_Start;
 using System;
 using System.Globalization;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Optimization;
 using System.Web.Routing;
 
 namespace RWA_Public
@@ -13,6 +15,7 @@ namespace RWA_Public
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
         protected void Application_Error()
@@ -21,15 +24,21 @@ namespace RWA_Public
             Response.Redirect("~/Error/Index?message=" + error);
         }
 
-        protected void Application_AcquireRequestState(object sender, EventArgs e)
+        protected void Application_BeginRequest(object sender, EventArgs e)
         {
-            HttpContext context = HttpContext.Current;
-            var languageSession = "en";
-            if (context != null && context.Session != null)
-                languageSession = context.Session["lang"] != null ? context.Session["lang"].ToString() : "en";
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(languageSession);
-            Thread.CurrentThread.CurrentCulture = new CultureInfo(languageSession);
-            
+            HttpCookie cookie = HttpContext.Current.Request.Cookies["language"];
+            if (cookie != null && cookie.Value != null)
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo(cookie.Value);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(cookie.Value);
+            }
+            else
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("eng");
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("eng");
+            }
+
+
         }
     }
 }

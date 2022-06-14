@@ -12,6 +12,7 @@
 
 
 
+
 <h2 class="mx-2 fw-normal">@((lang == "hr") ? apt.Name : apt.NameEng) - @apt.City</h2>
 <div class="d-flex stars">
     @for (int i = 0; i < apt.Stars; i++)
@@ -170,7 +171,7 @@
                     <div>
                         <label for="rngComfort" class="form-label fs-5">Comfort</label>
                         <div class="d-flex flex-column w-100 justify-content-center">
-                            <input type="range" class="form-range w-100 align-self-center"
+                            <input type="range" class="form-range mw-100 align-self-center"
                                    min="0" max="10" step="0.5" value="5"
                                    id="rngComfort" oninput="setLabel('rngComfort', 'comfortRating')">
                             <label style="color: forestgreen;" class="fs-5 d-block mt-1 text-center" id="comfortRating">5</label>
@@ -179,7 +180,7 @@
                     <div>
                         <label for="rngCleanliness" class="form-label fs-5">Cleanliness</label>
                         <div class="d-flex flex-column w-100 justify-content-center">
-                            <input type="range" class="form-range w-100 align-self-center"
+                            <input type="range" class="form-range mw-100 align-self-center"
                                    min="0" max="10" step="0.5" value="5"
                                    id="rngCleanliness" oninput="setLabel('rngCleanliness', 'cleanRating')">
                             <label style="color: forestgreen;" class="fs-5 d-block mt-1 text-center" id="cleanRating">5</label>
@@ -188,7 +189,7 @@
                     <div>
                         <label for="rngMoney" class="form-label fs-5">Value for money</label>
                         <div class="d-flex flex-column w-100 justify-content-center">
-                            <input type="range" class="form-range w-100 align-self-center"
+                            <input type="range" class="form-range mw-100 align-self-center"
                                    min="0" max="10" step="0.5" value="5"
                                    id="rngMoney" oninput="setLabel('rngMoney', 'moneyRating')">
                             <label style="color: forestgreen;" class="fs-5 d-block mt-1 text-center" id="moneyRating">5</label>
@@ -197,7 +198,7 @@
                 </div>
             </div>
             <div style="display: none" class="container text-center my-2" id="reviewMsg">
-                <h5>Thank you for leaving a review! :)</h5>
+                <span class="h4 mb-2" id="typed"></span>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -207,7 +208,10 @@
     </div>
 </div>
 
-<script>
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/@("@fancyapps")/ui@4.0/dist/fancybox.umd.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@("@fancyapps")/ui/dist/fancybox.css" />
+    <script>
     $(document).ready(function () {
         $('#fromDate').change(function () {
             var fromDate = $('#fromDate').val();
@@ -240,9 +244,13 @@
         document.getElementById('reviewMsg').style.display = 'block';
         document.getElementById('btnSave').style.display = 'none';
         $('#btnReview').attr('disabled', true);
+
+
     }
 
-</script>
+
+    </script>
+}
 
 
 

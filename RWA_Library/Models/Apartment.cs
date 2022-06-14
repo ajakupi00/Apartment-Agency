@@ -34,5 +34,7 @@ namespace RWA_Library.Models
         public int Stars { 
             get => stars;
         }
+
+ 
     }
 }

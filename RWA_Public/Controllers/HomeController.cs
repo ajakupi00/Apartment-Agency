@@ -1,5 +1,7 @@
-﻿using RWA_Library.DAL;
+﻿using Newtonsoft.Json;
+using RWA_Library.DAL;
 using RWA_Library.Models;
+using RWA_Public.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -25,23 +27,28 @@ namespace RWA_Public.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(string email, string username, string pnumber, string address, string password)
+        public ActionResult Register(UserModel model)
         {
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(pnumber) || string.IsNullOrEmpty(address)) return View("Login");
-            User user = new User
+            if (ModelState.IsValid)
             {
-                Email = email,
-                UserName = username,
-                PhoneNumber = pnumber,
-                Address = address
-            };
-            _repo.RegisterUser(user, password);
-            ViewBag.user = user;
-            Session["user"] = user;
-            ViewBag.apt = _repo.GetAllApartments();
-            ViewBag.repo = _repo;
-            ViewBag.cities = _repo.GetAllCities();
-            return View("Index");
+                User user = new User
+                {
+                    Email = model.Email,
+                    UserName = model.Username,
+                    PhoneNumber = model.PhoneNumber,
+                    Address = model.Address
+                };
+                string password = model.Password;
+                _repo.RegisterUser(user, password);
+                ViewBag.user = user;
+                Session["user"] = user;
+                ViewBag.apt = _repo.GetAllApartments();
+                ViewBag.repo = _repo;
+                ViewBag.cities = _repo.GetAllCities();
+                return View("Index");
+            }
+            return View("Login");
+            
         }
 
         [HttpPost]
@@ -61,45 +68,7 @@ namespace RWA_Public.Controllers
             return View("Index");
         }
 
-
-
-        [HttpGet]
-        public ActionResult Reserve(int id, string language)
-        {
-
-            ViewBag.apt = _repo.GetApartmentByID(id);
-            if (ViewBag.apt is null)
-            {
-                throw new Exception("Apartment with that ID does not exists!");
-            }
-
-            SetLanguage(language);
-
-            ViewBag.user = Session["user"];
-            ViewBag.pictures = _repo.GetPicturesByApartmentID(id);
-            ViewBag.tags = _repo.GetTagsByApartmentID(id);
-            Response.Cookies["lang"].Value = language;
-            return View();
-        }
-
-
-        private static void SetLanguage(string language)
-        {
-            if (language is null) language = "eng";
-            Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
-            Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
-        }
-
-        public JsonResult GetApartments()
-        {
-            var apt = _repo.GetAllApartments();
-            var aptNames = new List<string>();
-            foreach (var a in apt)
-            {
-                aptNames.Add(a.Name);
-            }
-            return Json(aptNames, JsonRequestBehavior.AllowGet);
-        }
+    
 
         [HttpGet]
         public ActionResult Logout(string language)
@@ -108,22 +77,10 @@ namespace RWA_Public.Controllers
             ViewBag.apt = _repo.GetAllApartments();
             ViewBag.repo = _repo;
             ViewBag.cities = _repo.GetAllCities();
-            SetLanguage(language);
             Response.Cookies["lang"].Value = language;
             return View("Index");
         }
 
 
-        [HttpGet]
-        public ActionResult Index(string language)
-        {
-            SetLanguage(language);
-            ViewBag.user = Session["user"];
-            ViewBag.apt = _repo.GetAllApartments();
-            ViewBag.repo = _repo;
-            ViewBag.cities = _repo.GetAllCities();
-            Response.Cookies["lang"].Value = language;
-            return View();
-        }
     }
 }
