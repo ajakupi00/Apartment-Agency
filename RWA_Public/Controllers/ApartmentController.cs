@@ -8,38 +8,37 @@ using System.Linq;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json.Converters;
+using System.Text;
 
 namespace RWA_Public.Controllers
 {
     public class ApartmentController : Controller
     {
         private IRepo _repo;
+        private Apartment[] apt;
         public ApartmentController()
         {
             _repo = RepoFactory.GetRepo();
+            apt = _repo.GetAllApartments().ToArray();
         }
 
         [HttpGet]
         public ActionResult Index(string search)
         {
+            Response.Cookies.Add(new HttpCookie("city", ""));
+            Response.Cookies.Add(new HttpCookie("rooms", "0"));
+            Response.Cookies.Add(new HttpCookie("children", "0"));
+            Response.Cookies.Add(new HttpCookie("adults", "0"));
+
             ViewBag.user = Session["user"];
-            IList<Apartment> apartments = new List<Apartment>();
-            ViewBag.repo = _repo;
             ViewBag.cities = _repo.GetAllCities();
 
             if (search is null) search = "";
 
             string language = HttpContext.Request.Cookies["language"].Value;
             ViewBag.lang = language;
-            if (language == "hr")
-            {
-                apartments = ((List<Apartment>)_repo.GetAllApartments()).FindAll(a => a.Name.ToLower().Contains(search.ToLower()));
-            }
-            else
-            {
-                apartments = ((List<Apartment>)_repo.GetAllApartments()).FindAll(a => a.NameEng.ToLower().Contains(search.ToLower()));
-            }
-            ViewBag.apt = apartments;
+            Response.Cookies.Add(new HttpCookie("search", search));
             return View("Index");
         }
 
@@ -51,18 +50,13 @@ namespace RWA_Public.Controllers
             ViewBag.cities = _repo.GetAllCities();
             string language = HttpContext.Request.Cookies["language"].Value;
             ViewBag.lang = language;
-            IList<Apartment> apartments = new List<Apartment>();
+            Request.Cookies["city"].Value = city;
+            Request.Cookies["children"].Value = children;
+            Request.Cookies["adults"].Value = adults;
+            Request.Cookies["rooms"].Value = rooms;
+            GetApartments();
 
-            apartments = ((List<Apartment>)_repo.GetAllApartments());
-            if(city != "")
-                apartments = apartments.Where(a => a.City.Name == city).ToList();
-            if (rooms != "0")
-                apartments = apartments.Where(a => a.TotalRooms.ToString() == rooms).ToList();
-            if (children != "0")
-                apartments = apartments.Where(a => a.MaxChildren.ToString() == children).ToList();
-            if (adults != "0")
-                apartments = (List<Apartment>)apartments.Where(a => a.MaxAdults.ToString() == adults).ToList();
-            ViewBag.apt = apartments;
+
             return View("Index");
         }
 
@@ -87,19 +81,18 @@ namespace RWA_Public.Controllers
 
         public JsonResult GetApartments()
         {
-            var apt = _repo.GetAllApartments();
-            var aptNames = new List<Apartment>();
-            foreach (var a in apt)
+            string search = Request.Cookies["search"].Value;
+            if (HttpContext.Request.Cookies["language"].Value == "hr")
             {
-                //if (a.Status.Name == "Slobodno")
-                //{
-                aptNames.Add(a);
-
-                //}
-
-
+                return Json(apt.Where(a => a.Name.ToLower().Contains(search.ToLower())).ToArray(), JsonRequestBehavior.AllowGet);
             }
-            return Json(aptNames, JsonRequestBehavior.AllowGet);
+            return Json(apt.Where(a => a.NameEng.ToLower().Contains(search.ToLower())).ToArray(), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetRPicturesByApartment(int id)
+        {
+            ApartmentPicture picture = (ApartmentPicture)_repo.GetPicturesByApartmentID(id).FirstOrDefault(p => p.IsRepresentative);
+            return Json(picture, JsonRequestBehavior.AllowGet);
         }
     }
 }
