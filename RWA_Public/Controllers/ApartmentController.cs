@@ -17,19 +17,27 @@ namespace RWA_Public.Controllers
     {
         private IRepo _repo;
         private Apartment[] apt;
+        private List<string> cookies = new List<string>(){"city", "sort", "rooms", "children", "adults"};
         public ApartmentController()
         {
             _repo = RepoFactory.GetRepo();
             apt = _repo.GetAllApartments().ToArray();
         }
 
+
         [HttpGet]
         public ActionResult Index(string search)
         {
-            Response.Cookies.Add(new HttpCookie("city", ""));
-            Response.Cookies.Add(new HttpCookie("rooms", "0"));
-            Response.Cookies.Add(new HttpCookie("children", "0"));
-            Response.Cookies.Add(new HttpCookie("adults", "0"));
+            if (Request.Cookies.Count < 6)
+            {
+                Response.Cookies.Add(new HttpCookie("city", ""));
+                Response.Cookies.Add(new HttpCookie("sort", ""));
+                Response.Cookies.Add(new HttpCookie("rooms", "0"));
+                Response.Cookies.Add(new HttpCookie("children", "0"));
+                Response.Cookies.Add(new HttpCookie("adults", "0"));
+                Response.Cookies.Add(new HttpCookie("language", "eng"));
+            }
+           
 
             ViewBag.user = Session["user"];
             ViewBag.cities = _repo.GetAllCities();
@@ -43,7 +51,7 @@ namespace RWA_Public.Controllers
         }
 
         [HttpPost]
-        public ActionResult Filter(string rooms, string children, string adults, string city)
+        public ActionResult Filter(string rooms, string children, string adults, string city, string sort)
         {
             ViewBag.user = Session["user"];
             ViewBag.repo = _repo;
@@ -54,8 +62,7 @@ namespace RWA_Public.Controllers
             Request.Cookies["children"].Value = children;
             Request.Cookies["adults"].Value = adults;
             Request.Cookies["rooms"].Value = rooms;
-            GetApartments();
-
+            Response.Cookies["sort"].Value = sort;
 
             return View("Index");
         }
@@ -82,17 +89,42 @@ namespace RWA_Public.Controllers
         public JsonResult GetApartments()
         {
             string search = Request.Cookies["search"].Value;
-            if (HttpContext.Request.Cookies["language"].Value == "hr")
+            var data = apt.ToArray();
+            foreach (Apartment apartment in data)
             {
-                return Json(apt.Where(a => a.Name.ToLower().Contains(search.ToLower())).ToArray(), JsonRequestBehavior.AllowGet);
+                apartment.Representative = _repo.GetPicturesByApartmentID(apartment.Id).FirstOrDefault(p => p.IsRepresentative).Path;
             }
-            return Json(apt.Where(a => a.NameEng.ToLower().Contains(search.ToLower())).ToArray(), JsonRequestBehavior.AllowGet);
+            if (HttpContext.Request.Cookies["language"].Value == "hr")
+                data = data.Where(a => a.Name.ToLower().Contains(search.ToLower())).ToArray();
+            else
+                data = data.Where(a => a.NameEng.ToLower().Contains(search.ToLower())).ToArray();
+
+            string sort = HttpContext.Request.Cookies["sort"].Value;
+            switch (sort)
+            {
+                case "pu":
+                    Array.Sort(data, (x,y) => x.Price.CompareTo(y.Price));
+                    break;
+                case "ps":
+                    Array.Sort(data, (x, y) => -x.Price.CompareTo(y.Price));
+                    break;
+                default:
+                    Array.Sort(data);
+                    break;
+            }
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetRPicturesByApartment(int id)
+        public JsonResult GetRPictureByApartment(int id)
         {
             ApartmentPicture picture = (ApartmentPicture)_repo.GetPicturesByApartmentID(id).FirstOrDefault(p => p.IsRepresentative);
             return Json(picture, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetPicturesByApartment(int id)
+        {
+            IList<ApartmentPicture> pictures = _repo.GetPicturesByApartmentID(id).Where(p => !p.IsRepresentative).ToList();
+            return Json(pictures, JsonRequestBehavior.AllowGet);
         }
     }
 }

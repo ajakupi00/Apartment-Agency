@@ -132,6 +132,9 @@
   <data name="ContactUs" xml:space="preserve">
     <value>Contact us</value>
   </data>
+  <data name="Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
   <data name="Destination" xml:space="preserve">
     <value>Destination</value>
   </data>
@@ -167,6 +170,12 @@
   </data>
   <data name="Price" xml:space="preserve">
     <value>Price</value>
+  </data>
+  <data name="PriceAsc" xml:space="preserve">
+    <value>Price ascending</value>
+  </data>
+  <data name="PriceDesc" xml:space="preserve">
+    <value>Price descending</value>
   </data>
   <data name="Reserve" xml:space="preserve">
     <value>Reserve apartment</value>

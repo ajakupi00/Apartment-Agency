@@ -5,18 +5,18 @@
     string lang = ViewBag.lang as string;
     IList<SelectListItem> cities = new List<SelectListItem>();
     (ViewBag.cities as IList<City>).ToList().ForEach(c => cities.Add(new SelectListItem { Text = c.Name, Value = c.Name }));
-    int rooms = (ViewBag.rooms is null) ? 0 : ViewBag.rooms;
+    IList<SelectListItem> sortlist = new List<SelectListItem>();
+    sortlist.Add(new SelectListItem { Text = RWA_Public.Resources.Lanugage.Default, Value = "d", Selected = true });
+    sortlist.Add(new SelectListItem { Text = RWA_Public.Resources.Lanugage.PriceAsc, Value = "pu" });
+    sortlist.Add(new SelectListItem { Text = RWA_Public.Resources.Lanugage.PriceDesc, Value = "ps" });
 
 }
 
-<button class="btn btn-outline-dark m-2 px-4" id="btnFilters" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-    Show filters
-</button>
 
 @using (Html.BeginForm("Filter", "Apartment"))
 {
-    <div class="collapse" id="collapseExample">
-        <div class="p-3 d-flex flex-column" style="border-block: 1px solid #ccc;">
+    <div>
+        <div class="px-3 pb-3 d-flex flex-column" style="border-bottom: 1px solid #ccc;">
             <div class="col form-group w-25">
                 <label class="form-label" for="nRooms">@RWA_Public.Resources.Lanugage.Rooms</label>
                 <input id="nRooms" type="number" value="@Request.Cookies["rooms"].Value" min="0" step="1" name="rooms" class="form-control" />
@@ -39,7 +39,7 @@
 
                 <div class="form-group">
                     <label class="form-label" for="grad">@RWA_Public.Resources.Lanugage.Sort</label>
-                    @Html.DropDownList("City", cities, new { @class = "form-select" })
+                    @Html.DropDownList("Sort", sortlist, new { @class = "form-select" })
                 </div>
 
             </div>
@@ -56,60 +56,51 @@
 </div>
 @section scripts{
     <script>
+        let content = document.getElementById('content');
+        let lang = "@lang"
+        
         $(document).ready( function() {
             $.ajax({
                 url: "/Apartment/GetApartments",
                 method: "GET",
                 success: function (data) {
-                    for (var i = 0; i < data.length; i++) {
-
-                        const { Id, Name, NameEng, City, BeachDistance, TotalRooms, MaxAdults, MaxChildren, Price } = data[i];
-                        const { Name: CityName } = City;
-                        $.ajax({
-                            url: `/Apartment/GetRPicturesByApartment/${Id}`,
-                            method: "GET",
-                            success: function (pdata) {
-                                const { Path } = pdata;
-                                let filterRoom = "@Request.Cookies["rooms"].Value"
-                                let filterChildren = "@Request.Cookies["children"].Value"
-                                let filterAdults= "@Request.Cookies["adults"].Value"
-                                let filterCity= "@Request.Cookies["city"].Value"
-                                 ShowApartment(Id, Name, NameEng, CityName, BeachDistance, TotalRooms, MaxAdults, MaxChildren, Price, Path, filterRoom, filterCity, filterChildren, filterAdults);
-
+                        for (var i = 0; i < data.length; i++) {
+                            console.log(i);
+                            const { Id, Name, NameEng, City, BeachDistance, TotalRooms, MaxAdults, MaxChildren, Price, Representative} = data[i];
+                            const { Name: CityName } = City;
+                            let filterRoom = "@Request.Cookies["rooms"].Value"
+                            let filterChildren = "@Request.Cookies["children"].Value"
+                            let filterAdults = "@Request.Cookies["adults"].Value"
+                            let filterCity = "@Request.Cookies["city"].Value"
+                            let stars = "";
+                            let rnd = Math.floor(1 + Math.random() * (5 - 1 + 1));
+                            for (var j = 0; j < rnd; j++) {
+                                stars += `<i class="fa-solid fa-star"></i>`
                             }
-                        });
-                    }
+                            if (
+                                //Svi podaci uneseni
+                                (TotalRooms == filterRoom && MaxAdults == filterAdults && MaxChildren == filterChildren && City == filterCity)
+                                //Samo grad
+                                || (filterRoom == "0" && filterChildren == "0" && filterAdults == "0" && City == filterCity)
+                                //Grad i jos 1 filter
+                                || (filterRoom == TotalRooms && City == filterCity & filterAdults == "0" && filterChildren == "0") || (filterAdults == MaxAdults && City == filterCity && filterRoom == "0" && filterChildren == "0") || (filterChildren == MaxChildren && City == filterCity && filterAdults == "0" && filterRoom == "0")
+                                //1 filter bez grada
+                                || (filterRoom == TotalRooms && filterCity == "" & filterAdults == "0" && filterChildren == "0") || (filterAdults == MaxAdults && filterCity == "" && filterRoom == "0" && filterChildren == "0") || (filterChildren == MaxChildren && filterCity == "" && filterAdults == "0" && filterRoom == "0")
+                                //Nijedan filter
+                                || (filterRoom == "0" && filterChildren == "0" && filterAdults == "0" && filterCity == "")) {
 
-
-                }
-            });
-        });
-
-        let content = document.getElementById('content');
-        let lang = "@lang"
-        function ShowApartment(Id, Name, NameEng, City, BeachDistance, TotalRooms, MaxAdults, MaxChildren, Price, Path, filterRoom, filterCity, filterChildren, filterAdults) {
-            if (
-                //Svi podaci uneseni
-                (TotalRooms == filterRoom && MaxAdults == filterAdults && MaxChildren == filterChildren && City == filterCity)
-                //Samo grad
-                || (filterRoom == "0" && filterChildren == "0" && filterAdults == "0" && City == filterCity)
-                //Grad i jos 1 filter
-                || (filterRoom == TotalRooms && City == filterCity & filterAdults == "0" && filterChildren == "0") || (filterAdults == MaxAdults && City == filterCity && filterRoom == "0" && filterChildren == "0") || (filterChildren == MaxChildren && City == filterCity && filterAdults == "0" && filterRoom == "0" )
-                //1 filter bez grada
-                || (filterRoom == TotalRooms && filterCity == "" & filterAdults == "0" && filterChildren == "0") || (filterAdults == MaxAdults && filterCity == "" && filterRoom == "0" && filterChildren == "0") || (filterChildren == MaxChildren && filterCity == "" && filterAdults == "0" && filterRoom == "0")
-                //Nijedan filter
-                || (filterRoom == "0" && filterChildren == "0" && filterAdults == "0" && filterCity == "")) {
-
-
-                content.innerHTML += `<div class='card m-2' style='width: 350px;'>
-                     <img class='card-img-top' src="/${Path}" alt='Card image cap' height='200'>
+                                content.innerHTML += `<div class='card m-2' style='width: 350px;'>
+                     <img class='card-img-top' src="/${Representative}" alt='Card image cap' height='200'>
                     <div class='card-body'>
-                         <h5 class='card-title' id='name'>${(lang == "hr") ? Name : NameEng}</h5>
+    <div class="d-flex justify-content-between">
+                         <h5 class='card-title d-inline' id='name'>${(lang == "hr") ? Name : NameEng} </h5>
+    <div class="d-inline mw-100 text-end">${stars}</div>
+    </div>
                     <p class='card-text'>
-            <span class='d-block' id='city'>- ${City}</span>
+                <span class='d-block' id='city'>- ${CityName}</span>
             <span class='d-block'>- ${BeachDistance} m @RWA_Public.Resources.Lanugage.Distance</span>
             <span class='d-block'>- ${TotalRooms} @RWA_Public.Resources.Lanugage.Rooms</span>
-            <span class='d-block'>- ${MaxAdults}s @RWA_Public.Resources.Lanugage.Adults</span>
+            <span class='d-block'>- ${MaxAdults} @RWA_Public.Resources.Lanugage.Adults</span>
             <span class='d-block'>- ${MaxChildren} @RWA_Public.Resources.Lanugage.Children</span>
             <span class='d-block mt-2 fw-bold px-2'>${Price} €</span>
              </p>
@@ -117,27 +108,15 @@
 
                 </div>
             </div>`;
-            }
+
+                            }
 
 
 
-        }
-
-
-
-        $('#btnFilters').click(function () {
-            var setting = $('#collapseExample').css('display');
-            console.log(setting);
-            if (setting == "none") {
-                $('#collapseExample').attr('style', 'display: block');
-            } else {
-                $('#collapseExample').attr('style', 'display: none;');
-            }
+                    }
+                }
+            });
         });
-
-
-
-
     </script>
 }
 

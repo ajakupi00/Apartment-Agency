@@ -65,7 +65,7 @@ namespace RWA_Public.Controllers
             ViewBag.apt = _repo.GetAllApartments();
             ViewBag.repo = _repo;
             ViewBag.cities = _repo.GetAllCities();
-            return View("Index");
+            return RedirectToAction("Index", "Apartment");
         }
 
     

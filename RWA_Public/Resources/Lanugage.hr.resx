@@ -132,6 +132,9 @@
   <data name="ContactUs" xml:space="preserve">
     <value>Kontaktirajte nas</value>
   </data>
+  <data name="Default" xml:space="preserve">
+    <value>Zadano</value>
+  </data>
   <data name="Destination" xml:space="preserve">
     <value>Lokacija</value>
   </data>
@@ -167,6 +170,12 @@
   </data>
   <data name="Price" xml:space="preserve">
     <value>Cijena</value>
+  </data>
+  <data name="PriceAsc" xml:space="preserve">
+    <value>Cijena uzlazno</value>
+  </data>
+  <data name="PriceDesc" xml:space="preserve">
+    <value>Cijena silazno</value>
   </data>
   <data name="Reserve" xml:space="preserve">
     <value>Rezerviraj</value>

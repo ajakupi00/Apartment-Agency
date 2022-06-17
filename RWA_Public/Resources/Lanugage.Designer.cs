@@ -106,6 +106,15 @@ namespace RWA_Public.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default.
+        /// </summary>
+        public static string Default {
+            get {
+                return ResourceManager.GetString("Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Destination.
         /// </summary>
         public static string Destination {
@@ -210,6 +219,24 @@ namespace RWA_Public.Resources {
         public static string Price {
             get {
                 return ResourceManager.GetString("Price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price ascending.
+        /// </summary>
+        public static string PriceAsc {
+            get {
+                return ResourceManager.GetString("PriceAsc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price descending.
+        /// </summary>
+        public static string PriceDesc {
+            get {
+                return ResourceManager.GetString("PriceDesc", resourceCulture);
             }
         }
         

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace RWA_Library.Models
 {
     [Serializable]
-    public class Apartment
+    public class Apartment : IComparable<Apartment>
     {
         private int stars;
         private Random rnd;
@@ -31,10 +31,25 @@ namespace RWA_Library.Models
         public int TotalRooms{ get; set; }
         public int BeachDistance{ get; set; }
         public int NumberOfPictures { get; set; }
+        public string Representative { get; set; }
         public int Stars { 
             get => stars;
         }
 
- 
+        public int CompareTo(Apartment other)
+        {
+            return Id.CompareTo(other.Id);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Apartment apartment &&
+                   Id == apartment.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
 }

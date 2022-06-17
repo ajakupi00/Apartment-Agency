@@ -7,7 +7,7 @@
     IList<Tag> tags = ViewBag.tags as IList<Tag>;
     ViewBag.Title = $"Reserve - {apt.Name}";
     User user = ViewBag.user as User;
-    string lang = Response.Cookies["lang"].Value;
+    string lang = ViewBag.lang as string;
 }
 
 
@@ -24,9 +24,8 @@
 <div class="d-flex">
     <div class="d-flex flex-column w-50" style="height:auto; border-right: 1px solid #ccc;">
         <div class="m-2 d-flex">
-            <div class="d-flex flex-column">
-                <img data-fancybox="rP" src="~/@rPicture.Path" style="width: 400px; filter: drop-shadow(0 0 0.25rem black);" id="rP" />
-                <span class="fs-4 p-2 fw-bold">@RWA_Public.Resources.Lanugage.Price: @apt.Price €</span>
+            <div class="d-flex flex-column" id="rPicture">
+
             </div>
             <div class="p-3 d-flex flex-column">
                 <span class="fs-5 mx-3">• @apt.City</span>
@@ -143,15 +142,7 @@
 
 </div>
 <div class="mt-4 w-100" id="grouped-images-1">
-    <div class="pb-8 d-flex flex-wrap">
-        @foreach (ApartmentPicture picture in pictures)
-        {
-            <a data-fancybox="gallery-1" href="~/@picture.Path" class="me-1 mb-1">
-                <img class="rounded" src="~/@picture.Path" width="200" height="150" />
-            </a>
-
-
-        }
+    <div class="pb-8 d-flex flex-wrap" id="images">
     </div>
 </div>
 
@@ -218,7 +209,40 @@
             $('#toDate').prop('disabled', false);
             $("#toDate").attr("min", fromDate);
         });
-    });
+
+        $.ajax({
+            url: "/Apartment/GetPicturesByApartment/@apt.Id",
+            method: "GET",
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    const { Path } = data[i];
+                    document.getElementById("images").innerHTML +=
+
+                    ` <a data-fancybox="gallery-1" href="/${Path}" class="me-1 mb-1">
+                <img class="rounded" src="/${Path}" width="200" height="150" />
+            </a>`
+
+                }
+            }
+
+
+        });
+
+        $.ajax({
+            url: "/Apartment/GetRPictureByApartment/@apt.Id",
+            method: "GET",
+            success: function (data) {
+                const { Path } = data;
+                console.log(data);
+                document.getElementById("rPicture").innerHTML +=
+                                           ` <img data-fancybox="rP" src="/${Path}" style="width: 400px; filter: drop-shadow(0 0 0.25rem black);" id="rP" />
+                <span class="fs-4 p-2 fw-bold">@RWA_Public.Resources.Lanugage.Price: @apt.Price €</span>`;
+
+            }
+        });
+
+
+        });
     Fancybox.bind("#grouped-images-1 a", {
         // Your options
     });
