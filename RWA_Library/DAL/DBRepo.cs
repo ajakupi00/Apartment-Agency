@@ -420,5 +420,16 @@ namespace RWA_Library.DAL
         {
             SqlHelper.ExecuteNonQuery(CS, nameof(RegisterUser), user.Email, user.UserName, user.PhoneNumber, user.Address, Cryptography.HashPassword(password));
         }
+
+        public void SendReview(int user, int apartment, int stars, string details)
+        {
+            SqlHelper.ExecuteNonQuery(CS, nameof(SendReview), user, apartment, stars, details);
+
+        }
+
+        public void ReserveApartment(int apartment, User user, int adults, int children, DateTime from, DateTime to)
+        {
+            SqlHelper.ExecuteNonQuery(CS, nameof(ReserveApartment), apartment, user.FName, user.LName, user.Email, user.PhoneNumber, adults, children, from, to);
+        }
     }
 }

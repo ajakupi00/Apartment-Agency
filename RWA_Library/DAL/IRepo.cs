@@ -24,6 +24,10 @@ namespace RWA_Library.DAL
         IList<ApartmentPicture> GetPicturesByApartmentID(int id);
         IList<Tag> GetTagsByApartmentID(int id);
         IList<City> GetAllCities();
+
+        void SendReview(int user, int apartment, int stars, string details);
+
+        void ReserveApartment(int apartment, User user, int adults, int children, DateTime from, DateTime to);
     }
 
 }

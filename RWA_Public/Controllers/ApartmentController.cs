@@ -82,6 +82,13 @@ namespace RWA_Public.Controllers
             ViewBag.user = Session["user"];
             ViewBag.pictures = _repo.GetPicturesByApartmentID(id);
             ViewBag.tags = _repo.GetTagsByApartmentID(id);
+            if(Session["msg"] != null)
+            {
+                ViewBag.msg = Session["msg"];
+                Session["msg"] = null;
+            }
+
+
             return View();
         }
 

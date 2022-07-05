@@ -1,6 +1,6 @@
 ﻿@using RWA_Library.Models;
 @{
-
+    string msg = ViewBag.msg as string;
     Apartment apt = ViewBag.apt as Apartment;
     IList<ApartmentPicture> pictures = ViewBag.pictures as IList<ApartmentPicture>;
     ApartmentPicture rPicture = pictures.FirstOrDefault(p => p.IsRepresentative);
@@ -11,13 +11,18 @@
 }
 
 
-
+@if (msg != "" && msg != null)
+{
+<div class="alert alert-info" role="alert">
+    @msg
+</div>
+}
 
 <h2 class="mx-2 fw-normal">@((lang == "hr") ? apt.Name : apt.NameEng) - @apt.City</h2>
 <div class="d-flex stars">
     @for (int i = 0; i < apt.Stars; i++)
     {
-        <i class="fa-solid fa-star"></i>
+    <i class="fa-solid fa-star"></i>
     }
 
 </div>
@@ -41,19 +46,19 @@
             {
                 for (int i = 0; i < tags.Count; i += 2)
                 {
-                    <div class="row">
-                        @for (int j = 0; j < 2; j++)
+            <div class="row">
+                @for (int j = 0; j < 2; j++)
                         {
                             if (lang == "hr")
                             {
-                                <span class="col fs-5">• @tags[i + j].Name</span>
+                <span class="col fs-5">• @tags[i + j].Name</span>
                             }
                             else
                             {
-                                <span class="col fs-5">• @tags[i + j].NameEng</span>
+                <span class="col fs-5">• @tags[i + j].NameEng</span>
                             }
                         }
-                    </div>
+            </div>
                 }
 
 
@@ -64,32 +69,32 @@
                 for (int i = 0; i < tags.Count - 1; i += 2)
                 {
 
-                    <div class="row">
-                        @for (int j = 0; j < 2; j++)
+            <div class="row">
+                @for (int j = 0; j < 2; j++)
                         {
                             if (lang == "hr")
                             {
-                                <span class="col fs-5">• @tags[i + j].Name</span>
+                <span class="col fs-5">• @tags[i + j].Name</span>
                             }
                             else
                             {
-                                <span class="col fs-5">• @tags[i + j].NameEng</span>
+                <span class="col fs-5">• @tags[i + j].NameEng</span>
                             }
 
                         }
-                    </div>
+            </div>
                 }
                 if (lang == "hr")
                 {
-                    <div class="row">
-                        <span class="col fs-5">• @tags[tags.Count - 1].Name</span>
-                    </div>
+            <div class="row">
+                <span class="col fs-5">• @tags[tags.Count - 1].Name</span>
+            </div>
                 }
                 else
                 {
-                    <div class="row">
-                        <span class="col fs-5">• @tags[tags.Count - 1].NameEng</span>
-                    </div>
+            <div class="row">
+                <span class="col fs-5">• @tags[tags.Count - 1].NameEng</span>
+            </div>
                 }
 
 
@@ -101,31 +106,33 @@
 
     <div class="px-5">
         <h2>@RWA_Public.Resources.Lanugage.ContactUs</h2>
+        @using (Html.BeginForm("ReserveApartment", "Query", new { aptid = apt.Id}, FormMethod.Post, null))
+        {
 
         <div class="form-group">
             <label for="fname">@RWA_Public.Resources.Lanugage.FName</label>
-            <input type="text" class="form-control mb-2 m-0" style="width: 400px;" id="fname" value="@((user != null) ? user.FName : "")" />
+            <input type="text" class="form-control mb-2 m-0" style="width: 400px;" id="fname" name="fname" value="@((user != null) ? user.FName : "")" />
         </div>
         <div class="form-group">
             <label for="lname">@RWA_Public.Resources.Lanugage.LName</label>
-            <input type="text" class="form-control w-100  mb-2" id="lname" value="@((user != null) ? user.LName : "")" />
+            <input type="text" class="form-control w-100  mb-2" id="lname" name="lname" value="@((user != null) ? user.LName : "")" />
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">@RWA_Public.Resources.Lanugage.Email</label>
-            <input type="email" class="form-control w-100  mb-2" id="email" value="@((user != null) ? user.Email : "")" />
+            <input type="email" class="form-control w-100  mb-2" id="email" name="email" value="@((user != null) ? user.Email : "")" />
         </div>
         <div class="form-group">
             <label for="phNum">@RWA_Public.Resources.Lanugage.Phone</label>
-            <input type="tel" class="form-control w-100  mb-2" id="phNum" value="@((user != null) ? user.PhoneNumber : "")" />
+            <input type="tel" class="form-control w-100  mb-2" id="phNum" name="phone" value="@((user != null) ? user.PhoneNumber : "")" />
         </div>
         <div class="d-flex justify-content-around">
             <div>
                 <label for="adults">@RWA_Public.Resources.Lanugage.Adults</label>
-                <input type="number" min="0" class="form-control w-75 m-0" id="adults">
+                <input type="number" min="0" class="form-control w-75 m-0" id="adults" name="adults">
             </div>
             <div>
                 <label for="children">@RWA_Public.Resources.Lanugage.Children</label>
-                <input type="number" min="0" class="form-control w-75  m-0" id="children">
+                <input type="number" min="0" class="form-control w-75  m-0" id="children" name="children">
             </div>
         </div>
         <div class="form-group">
@@ -136,7 +143,12 @@
             <label for="toDate">@RWA_Public.Resources.Lanugage.To</label>
             <input type="date" class="form-control mb-2 m-0" id="toDate" name="toDate" disabled />
         </div>
-        <button type="submit" class="btn btn-primary">@RWA_Public.Resources.Lanugage.Reserve</button>
+        <button style="display: none" type="submit" id="btnReserve" class="btn btn-primary">@RWA_Public.Resources.Lanugage.Reserve</button>
+        <form method="post" onsubmit="return submitUserForm();">
+            <div class="g-recaptcha" data-sitekey="6LdauMUgAAAAAMvVuJ8VDDQWkXq5ONhhkeeCamg1" data-callback="verifyCaptcha"></div>
+            <div id="g-recaptcha-error"></div>
+        </form>
+        }
     </div>
 
 
@@ -150,6 +162,9 @@
     <button class="btn btn-outline-warning w-25" data-bs-toggle="modal" id="btnReview" data-bs-target="#modalReview">Ostavite recenziju</button>
 </div>
 
+
+
+
 <div class="modal fade" id="modalReview" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -157,44 +172,36 @@
                 <h5 class="modal-title" id="exampleModalLabel">Review</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            @if (user != null)
+            {
+                using (Html.BeginForm("Review", "Query", new { userid = user.Id, aptid = apt.Id }, FormMethod.Post, null))
+                {
             <div class="modal-body">
                 <div style="display: block;" id="reviewForm">
                     <div>
-                        <label for="rngComfort" class="form-label fs-5">Comfort</label>
                         <div class="d-flex flex-column w-100 justify-content-center">
+                            <label class="form-label">@RWA_Public.Resources.Lanugage.Star</label>
                             <input type="range" class="form-range mw-100 align-self-center"
-                                   min="0" max="10" step="0.5" value="5"
+                                   min="0" max="5" step="1" value="5" name="stars"
                                    id="rngComfort" oninput="setLabel('rngComfort', 'comfortRating')">
                             <label style="color: forestgreen;" class="fs-5 d-block mt-1 text-center" id="comfortRating">5</label>
                         </div>
                     </div>
                     <div>
-                        <label for="rngCleanliness" class="form-label fs-5">Cleanliness</label>
                         <div class="d-flex flex-column w-100 justify-content-center">
-                            <input type="range" class="form-range mw-100 align-self-center"
-                                   min="0" max="10" step="0.5" value="5"
-                                   id="rngCleanliness" oninput="setLabel('rngCleanliness', 'cleanRating')">
-                            <label style="color: forestgreen;" class="fs-5 d-block mt-1 text-center" id="cleanRating">5</label>
-                        </div>
-                    </div>
-                    <div>
-                        <label for="rngMoney" class="form-label fs-5">Value for money</label>
-                        <div class="d-flex flex-column w-100 justify-content-center">
-                            <input type="range" class="form-range mw-100 align-self-center"
-                                   min="0" max="10" step="0.5" value="5"
-                                   id="rngMoney" oninput="setLabel('rngMoney', 'moneyRating')">
-                            <label style="color: forestgreen;" class="fs-5 d-block mt-1 text-center" id="moneyRating">5</label>
+                            <label class="form-label">@RWA_Public.Resources.Lanugage.Details</label>
+                            <textarea class="form-control" name="details"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
-            <div style="display: none" class="container text-center my-2" id="reviewMsg">
-                <span class="h4 mb-2" id="typed"></span>
-            </div>
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" id="btnSave" class="btn btn-primary" onclick="sendReview()">Save changes</button>
+                <button type="submit" id="btnSave" class="btn btn-primary">Save changes</button>
             </div>
+                }
+            }
         </div>
     </div>
 </div>
@@ -202,6 +209,26 @@
 @section scripts{
     <script src="https://cdn.jsdelivr.net/npm/@("@fancyapps")/ui@4.0/dist/fancybox.umd.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@("@fancyapps")/ui/dist/fancybox.css" />
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script>
+        var recaptcha_response = '';
+        function submitUserForm() {
+            if (recaptcha_response.length == 0) {
+                document.getElementById('g-recaptcha-error').innerHTML = '<span style="color:red;">This field is required.</span>';
+                return false;
+            }
+            return true;
+        }
+
+        function verifyCaptcha(token) {
+            recaptcha_response = token;
+            document.getElementById('g-recaptcha-error').innerHTML = '';
+            var btn = document.getElementById('btnReserve');
+            btn.style.display = "block";
+        }
+    </script>
+
     <script>
     $(document).ready(function () {
         $('#fromDate').change(function () {
@@ -216,6 +243,7 @@
             success: function (data) {
                 for (var i = 0; i < data.length; i++) {
                     const { Path } = data[i];
+                    console.log(Path);
                     document.getElementById("images").innerHTML +=
 
                     ` <a data-fancybox="gallery-1" href="/${Path}" class="me-1 mb-1">
@@ -263,18 +291,7 @@
         document.getElementById(labelID).innerHTML = input;
     }
 
-    function sendReview() {
-        document.getElementById('reviewForm').style.display = 'none';
-        document.getElementById('reviewMsg').style.display = 'block';
-        document.getElementById('btnSave').style.display = 'none';
-        $('#btnReview').attr('disabled', true);
-
-
-    }
 
 
     </script>
 }
-
-
-
