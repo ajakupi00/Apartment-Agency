@@ -19,7 +19,8 @@ namespace RWA_Public.Controllers
         public ActionResult Review(int userid, int aptid, int stars, string details)
         {
             _repo.SendReview(userid, aptid, stars, details);
-            return View();
+            Session["msg"] = RWA_Public.Resources.Lanugage.ReviewMsg;
+            return RedirectToAction("Reserve", "Apartment", new {id = aptid});
         }
     }
 }
