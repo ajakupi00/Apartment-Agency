@@ -66,6 +66,7 @@
                 success: function (data) {
                         for (var i = 0; i < data.length; i++) {
                             console.log(i);
+                            console.log(data[i]);
                             const { Id, Name, NameEng, City, BeachDistance, TotalRooms, MaxAdults, MaxChildren, Price, Representative} = data[i];
                             const { Name: CityName } = City;
                             let filterRoom = "@Request.Cookies["rooms"].Value"

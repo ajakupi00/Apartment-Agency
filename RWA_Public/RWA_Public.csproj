@@ -180,6 +180,7 @@
     <Content Include="Images\aptImg4.jpg" />
     <Content Include="Images\aptImg5.jpg" />
     <Content Include="Images\navigator.png" />
+    <Content Include="Images\či.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />

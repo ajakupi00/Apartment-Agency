@@ -160,30 +160,11 @@
             <div class="modal-body">
                 <div style="display: block;" id="reviewForm">
                     <div>
-                        <label for="rngComfort" class="form-label fs-5">Comfort</label>
                         <div class="d-flex flex-column w-100 justify-content-center">
                             <input type="range" class="form-range mw-100 align-self-center"
                                    min="0" max="10" step="0.5" value="5"
                                    id="rngComfort" oninput="setLabel('rngComfort', 'comfortRating')">
                             <label style="color: forestgreen;" class="fs-5 d-block mt-1 text-center" id="comfortRating">5</label>
-                        </div>
-                    </div>
-                    <div>
-                        <label for="rngCleanliness" class="form-label fs-5">Cleanliness</label>
-                        <div class="d-flex flex-column w-100 justify-content-center">
-                            <input type="range" class="form-range mw-100 align-self-center"
-                                   min="0" max="10" step="0.5" value="5"
-                                   id="rngCleanliness" oninput="setLabel('rngCleanliness', 'cleanRating')">
-                            <label style="color: forestgreen;" class="fs-5 d-block mt-1 text-center" id="cleanRating">5</label>
-                        </div>
-                    </div>
-                    <div>
-                        <label for="rngMoney" class="form-label fs-5">Value for money</label>
-                        <div class="d-flex flex-column w-100 justify-content-center">
-                            <input type="range" class="form-range mw-100 align-self-center"
-                                   min="0" max="10" step="0.5" value="5"
-                                   id="rngMoney" oninput="setLabel('rngMoney', 'moneyRating')">
-                            <label style="color: forestgreen;" class="fs-5 d-block mt-1 text-center" id="moneyRating">5</label>
                         </div>
                     </div>
                 </div>
@@ -216,8 +197,9 @@
             success: function (data) {
                 for (var i = 0; i < data.length; i++) {
                     const { Path } = data[i];
+                    console.log(Path);
                     document.getElementById("images").innerHTML +=
-
+                        
                     ` <a data-fancybox="gallery-1" href="/${Path}" class="me-1 mb-1">
                 <img class="rounded" src="/${Path}" width="200" height="150" />
             </a>`

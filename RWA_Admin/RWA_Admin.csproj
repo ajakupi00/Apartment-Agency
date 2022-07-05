@@ -98,6 +98,7 @@
     <Content Include="Images\aptImg5.jpg" />
     <Content Include="Images\navigator.png" />
     <Content Include="Apartments.aspx" />
+    <Content Include="Images\či.png" />
     <Content Include="Login.aspx" />
     <Content Include="NewApartment.aspx" />
     <Content Include="PageError.aspx" />
