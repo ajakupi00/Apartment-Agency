@@ -12,12 +12,14 @@ namespace RWA_Public.App_Start
         {
             bundles.Add(new StyleBundle("~/Content").Include(
                "~/Content/bootstrap.min.css",
-                    "~/Content/font-awesome.min.css"
+                    "~/Content/font-awesome.min.css",
+                    "~/Content/bootstrap-rating.css"
            ));
 
             bundles.Add(new ScriptBundle("~/Scripts").Include(
                 "~/Scripts/jquery-3.6.0.js",
-                "~/Scripts/bootstrap.js"
+                "~/Scripts/bootstrap.js",
+                "~/Scripts/bootstrap-rating/bootstrap-rating.min.js"
             ));
         }
     }

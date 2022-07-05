@@ -138,6 +138,9 @@
   <data name="Destination" xml:space="preserve">
     <value>Destination</value>
   </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details:</value>
+  </data>
   <data name="Distance" xml:space="preserve">
     <value>from beach</value>
   </data>
@@ -180,6 +183,9 @@
   <data name="Reserve" xml:space="preserve">
     <value>Reserve apartment</value>
   </data>
+  <data name="ReviewMsg" xml:space="preserve">
+    <value>Thank you for leaving a review...</value>
+  </data>
   <data name="Rooms" xml:space="preserve">
     <value>Rooms</value>
   </data>
@@ -191,6 +197,9 @@
   </data>
   <data name="Sort" xml:space="preserve">
     <value>Sort</value>
+  </data>
+  <data name="Star" xml:space="preserve">
+    <value>Stars:</value>
   </data>
   <data name="To" xml:space="preserve">
     <value>To</value>

@@ -124,6 +124,15 @@ namespace RWA_Public.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Details:.
+        /// </summary>
+        public static string Details {
+            get {
+                return ResourceManager.GetString("Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to from beach.
         /// </summary>
         public static string Distance {
@@ -250,6 +259,15 @@ namespace RWA_Public.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thank you for leaving a review....
+        /// </summary>
+        public static string ReviewMsg {
+            get {
+                return ResourceManager.GetString("ReviewMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rooms.
         /// </summary>
         public static string Rooms {
@@ -282,6 +300,15 @@ namespace RWA_Public.Resources {
         public static string Sort {
             get {
                 return ResourceManager.GetString("Sort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stars:.
+        /// </summary>
+        public static string Star {
+            get {
+                return ResourceManager.GetString("Star", resourceCulture);
             }
         }
         

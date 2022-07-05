@@ -214,6 +214,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
+    <Compile Include="Controllers\QueryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -274,6 +275,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="App_GlobalResources\" />
     <Folder Include="Views\Language\" />
+    <Folder Include="Views\Query\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RWA_Admin\RWA_Admin.csproj">
