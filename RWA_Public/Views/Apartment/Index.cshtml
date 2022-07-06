@@ -23,11 +23,11 @@
             </div>
             <div class="col form-group  w-25">
                 <label class="form-label" for="nAdults">@RWA_Public.Resources.Lanugage.Adults</label>
-                <input id="nAdults" type="number" value="@Request.Cookies["rooms"].Value" min="0" step="1" name="adults" class="form-control" />
+                <input id="nAdults" type="number" value="@Request.Cookies["adults"].Value" min="0" step="1" name="adults" class="form-control" />
             </div>
             <div class="col form-group  w-25">
                 <label class="form-label" for="nChildren">@RWA_Public.Resources.Lanugage.Children</label>
-                <input id="nChildren" type="number" value="@Request.Cookies["rooms"].Value" min="0" step="1" name="children" class="form-control" />
+                <input id="nChildren" type="number" value="@Request.Cookies["children"].Value" min="0" step="1" name="children" class="form-control" />
             </div>
 
 
@@ -78,17 +78,93 @@
                             for (var j = 0; j < rnd; j++) {
                                 stars += `<i class="fa-solid fa-star"></i>`
                             }
-                            if (
-                                //Svi podaci uneseni
-                                (TotalRooms == filterRoom && MaxAdults == filterAdults && MaxChildren == filterChildren && City == filterCity)
+                            //Svi podaci uneseni
+                            if (TotalRooms == filterRoom && MaxAdults == filterAdults && MaxChildren == filterChildren && CityName == filterCity)
+
+                                content.innerHTML += `<div class='card m-2' style='width: 350px;'>
+                     <img class='card-img-top' src="${Representative}" alt='Card image cap' height='200'>
+                    <div class='card-body'>
+    <div class="d-flex justify-content-between">
+                         <h5 class='card-title d-inline' id='name'>${(lang == "hr") ? Name : NameEng} </h5>
+    <div class="d-inline mw-100 text-end">${stars}</div>
+    </div>
+                    <p class='card-text'>
+                <span class='d-block' id='city'>- ${CityName}</span>
+            <span class='d-block'>- ${BeachDistance} m @RWA_Public.Resources.Lanugage.Distance</span>
+            <span class='d-block'>- ${TotalRooms} @RWA_Public.Resources.Lanugage.Rooms</span>
+            <span class='d-block'>- ${MaxAdults} @RWA_Public.Resources.Lanugage.Adults</span>
+            <span class='d-block'>- ${MaxChildren} @RWA_Public.Resources.Lanugage.Children</span>
+            <span class='d-block mt-2 fw-bold px-2'>${Price} €</span>
+             </p>
+             <a class="btn btn-outline-primary w-100" href="/Apartment/Reserve/${Id}?language=eng">Reserve apartment</a>
+                </div>
+            </div>`
                                 //Samo grad
-                                || (filterRoom == "0" && filterChildren == "0" && filterAdults == "0" && City == filterCity)
+                            else if (filterRoom == "0" && filterChildren == "0" && filterAdults == "0" && CityName == filterCity)
+
+                                content.innerHTML += `<div class='card m-2' style='width: 350px;'>
+                     <img class='card-img-top' src="${Representative}" alt='Card image cap' height='200'>
+                    <div class='card-body'>
+    <div class="d-flex justify-content-between">
+                         <h5 class='card-title d-inline' id='name'>${(lang == "hr") ? Name : NameEng} </h5>
+    <div class="d-inline mw-100 text-end">${stars}</div>
+    </div>
+                    <p class='card-text'>
+                <span class='d-block' id='city'>- ${CityName}</span>
+            <span class='d-block'>- ${BeachDistance} m @RWA_Public.Resources.Lanugage.Distance</span>
+            <span class='d-block'>- ${TotalRooms} @RWA_Public.Resources.Lanugage.Rooms</span>
+            <span class='d-block'>- ${MaxAdults} @RWA_Public.Resources.Lanugage.Adults</span>
+            <span class='d-block'>- ${MaxChildren} @RWA_Public.Resources.Lanugage.Children</span>
+            <span class='d-block mt-2 fw-bold px-2'>${Price} €</span>
+             </p>
+             <a class="btn btn-outline-primary w-100" href="/Apartment/Reserve/${Id}?language=eng">Reserve apartment</a>
+                </div>
+            </div>`
                                 //Grad i jos 1 filter
-                                || (filterRoom == TotalRooms && City == filterCity & filterAdults == "0" && filterChildren == "0") || (filterAdults == MaxAdults && City == filterCity && filterRoom == "0" && filterChildren == "0") || (filterChildren == MaxChildren && City == filterCity && filterAdults == "0" && filterRoom == "0")
+                            else if ((parseInt(filterRoom) == TotalRooms && CityName == filterCity & filterAdults == "0" && filterChildren == "0") || (parseInt(filterAdults) == MaxAdults && CityName == filterCity && filterRoom == "0" && filterChildren == "0") || (parseInt(filterChildren) == MaxChildren && CityName == filterCity && filterAdults == "0" && filterRoom == "0"))
+
+                                content.innerHTML += `<div class='card m-2' style='width: 350px;'>
+                     <img class='card-img-top' src="${Representative}" alt='Card image cap' height='200'>
+                    <div class='card-body'>
+    <div class="d-flex justify-content-between">
+                         <h5 class='card-title d-inline' id='name'>${(lang == "hr") ? Name : NameEng} </h5>
+    <div class="d-inline mw-100 text-end">${stars}</div>
+    </div>
+                    <p class='card-text'>
+                <span class='d-block' id='city'>- ${CityName}</span>
+            <span class='d-block'>- ${BeachDistance} m @RWA_Public.Resources.Lanugage.Distance</span>
+            <span class='d-block'>- ${TotalRooms} @RWA_Public.Resources.Lanugage.Rooms</span>
+            <span class='d-block'>- ${MaxAdults} @RWA_Public.Resources.Lanugage.Adults</span>
+            <span class='d-block'>- ${MaxChildren} @RWA_Public.Resources.Lanugage.Children</span>
+            <span class='d-block mt-2 fw-bold px-2'>${Price} €</span>
+             </p>
+             <a class="btn btn-outline-primary w-100" href="/Apartment/Reserve/${Id}?language=eng">Reserve apartment</a>
+                </div>
+            </div>`
                                 //1 filter bez grada
-                                || (filterRoom == TotalRooms && filterCity == "" & filterAdults == "0" && filterChildren == "0") || (filterAdults == MaxAdults && filterCity == "" && filterRoom == "0" && filterChildren == "0") || (filterChildren == MaxChildren && filterCity == "" && filterAdults == "0" && filterRoom == "0")
+                            else if ( (filterRoom == TotalRooms && filterCity == "" & filterAdults == "0" && filterChildren == "0") || (filterAdults == MaxAdults && filterCity == "" && filterRoom == "0" && filterChildren == "0") || (filterChildren == MaxChildren && filterCity == "" && filterAdults == "0" && filterRoom == "0"))
+
+                                content.innerHTML += `<div class='card m-2' style='width: 350px;'>
+                     <img class='card-img-top' src="${Representative}" alt='Card image cap' height='200'>
+                    <div class='card-body'>
+    <div class="d-flex justify-content-between">
+                         <h5 class='card-title d-inline' id='name'>${(lang == "hr") ? Name : NameEng} </h5>
+    <div class="d-inline mw-100 text-end">${stars}</div>
+    </div>
+                    <p class='card-text'>
+                <span class='d-block' id='city'>- ${CityName}</span>
+            <span class='d-block'>- ${BeachDistance} m @RWA_Public.Resources.Lanugage.Distance</span>
+            <span class='d-block'>- ${TotalRooms} @RWA_Public.Resources.Lanugage.Rooms</span>
+            <span class='d-block'>- ${MaxAdults} @RWA_Public.Resources.Lanugage.Adults</span>
+            <span class='d-block'>- ${MaxChildren} @RWA_Public.Resources.Lanugage.Children</span>
+            <span class='d-block mt-2 fw-bold px-2'>${Price} €</span>
+             </p>
+             <a class="btn btn-outline-primary w-100" href="/Apartment/Reserve/${Id}?language=eng">Reserve apartment</a>
+                </div>
+            </div>`
                                 //Nijedan filter
-                                || (filterRoom == "0" && filterChildren == "0" && filterAdults == "0" && filterCity == "")) {
+                            else if(filterRoom == "0" && filterChildren == "0" && filterAdults == "0" && filterCity == "")
+                            {
 
                                 content.innerHTML += `<div class='card m-2' style='width: 350px;'>
                      <img class='card-img-top' src="${Representative}" alt='Card image cap' height='200'>
