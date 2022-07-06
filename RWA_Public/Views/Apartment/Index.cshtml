@@ -58,7 +58,7 @@
     <script>
         let content = document.getElementById('content');
         let lang = "@lang"
-        
+
         $(document).ready( function() {
             $.ajax({
                 url: "/Apartment/GetApartments",
@@ -67,7 +67,7 @@
                         for (var i = 0; i < data.length; i++) {
                             console.log(i);
                             console.log(data[i]);
-                            const { Id, Name, NameEng, City, BeachDistance, TotalRooms, MaxAdults, MaxChildren, Price, Representative} = data[i];
+                            const { Id, Name, NameEng, City, BeachDistance, TotalRooms, MaxAdults, MaxChildren, Price, Representative } = data[i];
                             const { Name: CityName } = City;
                             let filterRoom = "@Request.Cookies["rooms"].Value"
                             let filterChildren = "@Request.Cookies["children"].Value"
@@ -91,7 +91,7 @@
                                 || (filterRoom == "0" && filterChildren == "0" && filterAdults == "0" && filterCity == "")) {
 
                                 content.innerHTML += `<div class='card m-2' style='width: 350px;'>
-                     <img class='card-img-top' src="/${Representative}" alt='Card image cap' height='200'>
+                     <img class='card-img-top' src="${Representative}" alt='Card image cap' height='200'>
                     <div class='card-body'>
     <div class="d-flex justify-content-between">
                          <h5 class='card-title d-inline' id='name'>${(lang == "hr") ? Name : NameEng} </h5>
@@ -105,8 +105,7 @@
             <span class='d-block'>- ${MaxChildren} @RWA_Public.Resources.Lanugage.Children</span>
             <span class='d-block mt-2 fw-bold px-2'>${Price} €</span>
              </p>
-             @Html.ActionLink(@RWA_Public.Resources.Lanugage.Reserve, "Reserve", new { id = 1, language = lang }, new { @class = "btn btn-outline-primary w-100" })
-
+             <a class="btn btn-outline-primary w-100" href="/Apartment/Reserve/${Id}?language=eng">Reserve apartment</a>
                 </div>
             </div>`;
 

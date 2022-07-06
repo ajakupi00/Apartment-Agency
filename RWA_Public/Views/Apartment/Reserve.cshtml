@@ -216,12 +216,11 @@
             method: "GET",
             success: function (data) {
                 for (var i = 0; i < data.length; i++) {
-                    const { Path } = data[i];
-                    console.log(Path);
+                    const { SRC } = data[i];
                     document.getElementById("images").innerHTML +=
 
-                    ` <a data-fancybox="gallery-1" href="/${Path}" class="me-1 mb-1">
-                <img class="rounded" src="/${Path}" width="200" height="150" />
+                        ` <a data-fancybox="gallery-1" href="/${SRC}" class="me-1 mb-1">
+                <img class="rounded" src="/${SRC}" width="200" height="150" />
             </a>`
 
                 }
@@ -234,10 +233,9 @@
             url: "/Apartment/GetRPictureByApartment/@apt.Id",
             method: "GET",
             success: function (data) {
-                const { Path } = data;
-                console.log(data);
+                const { SRC } = data;
                 document.getElementById("rPicture").innerHTML +=
-                                           ` <img data-fancybox="rP" src="/${Path}" style="width: 400px; filter: drop-shadow(0 0 0.25rem black);" id="rP" />
+                                           ` <img data-fancybox="rP" src="${SRC}" style="width: 400px; filter: drop-shadow(0 0 0.25rem black);" id="rP" />
                 <span class="fs-4 p-2 fw-bold">@RWA_Public.Resources.Lanugage.Price: @apt.Price €</span>`;
 
             }

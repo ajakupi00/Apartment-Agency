@@ -11,7 +11,7 @@
             <asp:Repeater ID="rptImgs" runat="server">
                 <ItemTemplate>
                     <div class="carousel__slide container w-50">
-                        <asp:Image ImageUrl="<%# Eval(nameof(RWA_Library.Models.ApartmentPicture.Path)) %>" CssClass="d-block img-fluid" runat="server" />
+                        <asp:Image ImageUrl="<%# Eval(nameof(RWA_Library.Models.ApartmentPicture.SRC)) %>" CssClass="d-block img-fluid" runat="server" />
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
@@ -161,7 +161,7 @@
             <asp:Repeater ID="rptRepresentativePictures" runat="server">
                 <ItemTemplate>
                     <div class="container d-flex flex-column align-items-center" id="repPictureDiv" style="width: 20%;">
-                        <img src="<%# Eval(nameof(RWA_Library.Models.ApartmentPicture.Path)) %>" class="img-thumbnail choosenPicture" alt="Alternate Text" style="width: 100%; height=100%;" />
+                        <img src="<%# Eval(nameof(RWA_Library.Models.ApartmentPicture.SRC)) %>" class="img-thumbnail choosenPicture" alt="Alternate Text" style="width: 100%; height=100%;" />
                         <asp:CheckBox CssClass="m-1" ID="cbChoosenImage" runat="server" OnCheckedChanged="cbChoosenImage_CheckedChanged" AutoPostBack="true" />
                     </div>
                 </ItemTemplate>

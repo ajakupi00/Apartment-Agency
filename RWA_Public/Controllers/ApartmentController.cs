@@ -99,7 +99,7 @@ namespace RWA_Public.Controllers
             var data = apt.ToArray();
             foreach (Apartment apartment in data)
             {
-                apartment.Representative = _repo.GetPicturesByApartmentID(apartment.Id).FirstOrDefault(p => p.IsRepresentative).Path;
+                apartment.Representative = _repo.GetPicturesByApartmentID(apartment.Id).FirstOrDefault(p => p.IsRepresentative).SRC;
             }
             if (HttpContext.Request.Cookies["language"].Value == "hr")
                 data = data.Where(a => a.Name.ToLower().Contains(search.ToLower())).ToArray();
@@ -119,7 +119,10 @@ namespace RWA_Public.Controllers
                     Array.Sort(data);
                     break;
             }
-            return Json(data, JsonRequestBehavior.AllowGet);
+
+            JsonResult jsonResult = Json(data, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
         }
 
         public JsonResult GetRPictureByApartment(int id)
@@ -131,7 +134,9 @@ namespace RWA_Public.Controllers
         public JsonResult GetPicturesByApartment(int id)
         {
             IList<ApartmentPicture> pictures = _repo.GetPicturesByApartmentID(id).Where(p => !p.IsRepresentative).ToList();
-            return Json(pictures, JsonRequestBehavior.AllowGet);
+            JsonResult jsonResult = Json(pictures, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
         }
     }
 }

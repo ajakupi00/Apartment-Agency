@@ -122,7 +122,8 @@ namespace RWA_Library.DAL
                     Id = (int)row[nameof(ApartmentPicture.Id)],
                     Path = row[nameof(ApartmentPicture.Path)].ToString(),
                     Apartment = GetApartmentByID(id),
-                    IsRepresentative = (bool)row[nameof(ApartmentPicture.IsRepresentative)]
+                    IsRepresentative = (bool)row[nameof(ApartmentPicture.IsRepresentative)],
+                    DATA = row["Base64Content"].ToString()
                 });
 
             }
@@ -404,7 +405,7 @@ namespace RWA_Library.DAL
         {
             foreach (ApartmentPicture picture in pictures)
             {
-                SqlHelper.ExecuteDataset(CS, nameof(CreatePictureForApartment), apartmentID, picture.Name, picture.Path, picture.IsRepresentative);
+                SqlHelper.ExecuteDataset(CS, nameof(CreatePictureForApartment), apartmentID, picture.Name, picture.Path, picture.IsRepresentative, picture.DATA);
             }
         }
 

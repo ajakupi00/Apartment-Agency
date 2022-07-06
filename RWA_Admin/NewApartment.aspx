@@ -85,7 +85,7 @@
                 <asp:Repeater ID="rptImages" runat="server">
                     <ItemTemplate>
                         <div class="imgContainer w-100 d-flex flex-row mb-4">
-                            <asp:Image ImageUrl="<%# Eval(nameof(RWA_Library.Models.ApartmentPicture.Path)) %>" runat="server" Style="width: 200px;" />
+                            <asp:Image ImageUrl="<%# Eval(nameof(RWA_Library.Models.ApartmentPicture.SRC)) %>" runat="server" Style="width: 200px;" />
                             <div class="p-4 ">
                                 <h3><%# Eval(nameof(RWA_Library.Models.ApartmentPicture.Name)) %></h3>
                                 <div class="d-flex imgControl">
