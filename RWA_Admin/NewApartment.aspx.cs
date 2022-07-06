@@ -70,16 +70,13 @@ namespace RWA_Admin
         {
 
             string name = FileUpload.FileName.ToString();
-            string path = "/Images/" + name;
-            if (!File.Exists(Request.PhysicalApplicationPath + path))
-            {
-                return;
-            }
-            FileUpload.SaveAs(Request.PhysicalApplicationPath + path);
+            byte[] imgBytes = FileUpload.FileBytes;
+
             _pictures.Add(new ApartmentPicture
             {
                 Name = name,
-                Path = path
+                Path = name,
+                DATA = Convert.ToBase64String(imgBytes)
             });
             ViewState["pictures"] = _pictures;
             LoadData();
