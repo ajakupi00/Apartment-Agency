@@ -15,7 +15,7 @@ namespace RWA_Library.Models
         public string Name { get; set; }
         public bool IsRepresentative { get; set; }
         public string DATA { get; set; }
-        public string SRC { get => "data:image/png;base64," + DATA; }
+        public string SRC { get => "data:image/jpeg;base64," + DATA; }
 
         public override bool Equals(object obj)
         {

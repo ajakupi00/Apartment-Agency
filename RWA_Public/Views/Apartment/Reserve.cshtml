@@ -216,12 +216,12 @@
             method: "GET",
             success: function (data) {
                 for (var i = 0; i < data.length; i++) {
-                    const { SRC } = data[i];
+                    const { SRC, Path } = data[i];
                     document.getElementById("images").innerHTML +=
 
-                        ` <a data-fancybox="gallery-1" href="/${SRC}" class="me-1 mb-1">
-                <img class="rounded" src="/${SRC}" width="200" height="150" />
-            </a>`
+                        `
+                <img data-fancybox="gallery-1" class="rounded m-1" src="${SRC}" width="200" height="150" />
+            `
 
                 }
             }

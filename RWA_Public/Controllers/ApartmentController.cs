@@ -128,7 +128,9 @@ namespace RWA_Public.Controllers
         public JsonResult GetRPictureByApartment(int id)
         {
             ApartmentPicture picture = (ApartmentPicture)_repo.GetPicturesByApartmentID(id).FirstOrDefault(p => p.IsRepresentative);
-            return Json(picture, JsonRequestBehavior.AllowGet);
+            JsonResult jsonResult = Json(picture, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
         }
 
         public JsonResult GetPicturesByApartment(int id)
