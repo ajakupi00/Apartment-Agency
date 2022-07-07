@@ -174,13 +174,7 @@
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Images\aptImg1.jpg" />
-    <Content Include="Images\aptImg2.jpg" />
-    <Content Include="Images\aptImg3.jpeg" />
-    <Content Include="Images\aptImg4.jpg" />
-    <Content Include="Images\aptImg5.jpg" />
     <Content Include="Images\navigator.png" />
-    <Content Include="Images\či.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -210,6 +204,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AgencyController.cs" />
     <Compile Include="Controllers\ApartmentController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -264,6 +259,8 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.6.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.6.0.min.map" />
+    <Content Include="Views\Agency\Contact.cshtml" />
+    <Content Include="Views\Agency\About.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

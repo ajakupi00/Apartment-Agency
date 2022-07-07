@@ -165,6 +165,9 @@
   <data name="Logout" xml:space="preserve">
     <value>Odjavi se</value>
   </data>
+  <data name="Message" xml:space="preserve">
+    <value>Poruka:</value>
+  </data>
   <data name="Owner" xml:space="preserve">
     <value>Vlasnik</value>
   </data>
@@ -187,7 +190,7 @@
     <value>Upit za rezervaciju uspješno poslan.</value>
   </data>
   <data name="ReviewMsg" xml:space="preserve">
-    <value>Thank you for leaving a review...</value>
+    <value>Hvala vam što ste ostavili recenziju...</value>
   </data>
   <data name="Rooms" xml:space="preserve">
     <value>Soba</value>
@@ -197,6 +200,9 @@
   </data>
   <data name="SearchApt" xml:space="preserve">
     <value>Pretraži apartman...</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Pošalji</value>
   </data>
   <data name="Sort" xml:space="preserve">
     <value>Sortiraj</value>

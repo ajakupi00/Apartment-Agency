@@ -40,6 +40,10 @@
             #collapseExample.visible {
                 transition: max-height 0.75s ease-in;
             }
+            footer {
+                font-size: 1.5em;
+                font-weight: bold;
+            }
     </style>
 </head>
 <body>
@@ -64,21 +68,21 @@
 
                 <ul class="navbar-nav flex-grow-1 justify-content-end ">
                     <li class="nav-item">
-                        @Html.ActionLink(RWA_Public.Resources.Lanugage.Contact, "Index", lang, new { @class = "nav-link" })
+                        @Html.ActionLink(RWA_Public.Resources.Lanugage.Contact, "Contact","Agency", lang, new { @class = "nav-link" })
 
                     </li>
                     <li class="nav-item">
-                        @Html.ActionLink(RWA_Public.Resources.Lanugage.About, "Index", lang, new { @class = "nav-link" })
+                        @Html.ActionLink(RWA_Public.Resources.Lanugage.About, "About", "Agency", lang, new { @class = "nav-link" })
                     </li>
                     <li class="nav-item">
                         @switch (lang)
                         {
                             case "hr":
-                                @Html.ActionLink(RWA_Public.Resources.Lanugage.Language, "Change", "Language" ,new { language = "eng" }, new { @class = "nav-link" });
+                                @Html.ActionLink(RWA_Public.Resources.Lanugage.Language, "Change", "Language", new { language = "eng" }, new { @class = "nav-link" });
 
                                 break;
                             default:
-                                @Html.ActionLink(RWA_Public.Resources.Lanugage.Language, "Change", "Language" ,new { language = "hr" }, new { @class = "nav-link" });
+                                @Html.ActionLink(RWA_Public.Resources.Lanugage.Language, "Change", "Language", new { language = "hr" }, new { @class = "nav-link" });
                                 break;
 
                         }
@@ -110,7 +114,7 @@
         </footer>
     </div>
 
-    
+
     @Scripts.Render("~/Scripts")
     @RenderSection("scripts", required: false)
 </body>

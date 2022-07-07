@@ -1,0 +1,39 @@
+﻿@using RWA_Library.Models
+@{
+    ViewBag.Title = "Contact";
+    var error = ViewBag.err as string;
+    User user = Session["user"] as User;
+}
+
+<style>
+    body {
+        background: url("https://wallpaperaccess.com/full/3124512.jpg");
+        height: 80vh;
+        background-size: cover;
+        background-repeat: no-repeat;
+        box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.1);
+    }
+
+    #content {
+        height: 100%;
+    }
+</style>
+
+
+
+
+<div class="d-flex align-items-center justify-content-center" id="content">
+    <div class="container d-flex flex-column align-items-center p-5 w-75" style="background-color: white; border-radius: 15px;">
+        <h1>@RWA_Public.Resources.Lanugage.ContactUs</h1>
+        <label class="form-label align-self-baseline">@RWA_Public.Resources.Lanugage.Email:</label>
+        <input type="email" value="@((user != null ) ? user.Email : "")" class="form-control my-2" id="exampleFormControlInput1" placeholder="name@example.com">
+
+        <label for="exampleFormControlTextarea1" class="form-label align-self-baseline">@RWA_Public.Resources.Lanugage.Message</label>
+        <textarea class="form-control my-2" id="exampleFormControlTextarea1" rows="3"></textarea>
+
+        <button class="btn btn-success w-100">@RWA_Public.Resources.Lanugage.Send</button>
+    </div>
+</div>
+
+
+

@@ -63,7 +63,6 @@ namespace RWA_Public.Controllers
             Request.Cookies["adults"].Value = adults;
             Request.Cookies["rooms"].Value = rooms;
             Response.Cookies["sort"].Value = sort;
-
             return View("Index");
         }
 

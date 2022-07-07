@@ -205,6 +205,15 @@ namespace RWA_Public.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Message:.
+        /// </summary>
+        public static string Message {
+            get {
+                return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Owner.
         /// </summary>
         public static string Owner {
@@ -300,6 +309,15 @@ namespace RWA_Public.Resources {
         public static string SearchApt {
             get {
                 return ResourceManager.GetString("SearchApt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send.
+        /// </summary>
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
             }
         }
         

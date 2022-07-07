@@ -91,14 +91,8 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="CSS\NewApartmentCSS.css" />
     <Content Include="Global.asax" />
-    <Content Include="Images\aptImg1.jpg" />
-    <Content Include="Images\aptImg2.jpg" />
-    <Content Include="Images\aptImg3.jpeg" />
-    <Content Include="Images\aptImg4.jpg" />
-    <Content Include="Images\aptImg5.jpg" />
     <Content Include="Images\navigator.png" />
     <Content Include="Apartments.aspx" />
-    <Content Include="Images\či.png" />
     <Content Include="Login.aspx" />
     <Content Include="NewApartment.aspx" />
     <Content Include="PageError.aspx" />
