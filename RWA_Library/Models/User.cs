@@ -18,7 +18,7 @@ namespace RWA_Library.Models
         {
             get
             {
-                return UserName.Split(' ')[1];
+                return (UserName.Split(' ').Length > 1) ? UserName.Split(' ')[1] : "";
             }
         }
         public override string ToString() => $"{Id}{DEL}{UserName}";

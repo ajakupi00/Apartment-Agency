@@ -156,6 +156,22 @@ namespace RWA_Admin
             txtChildren.Text = _apartment.MaxChildren.ToString();
             txtPrice.Text = _apartment.Price.ToString();
             txtRooms.Text = _apartment.TotalRooms.ToString();
+
+            switch (_apartment.Status.Name)
+            {
+                case "Slobodno":
+                    ddlStatus.SelectedIndex = 2;
+                    break;
+                case "Rezervirano":
+                    ddlStatus.SelectedIndex = 0;
+                    break;
+                case "Zauzeto":
+                    ddlStatus.SelectedIndex = 1;
+                    break;
+                default:
+                    ddlStatus.SelectedIndex = 2;
+                    break;
+            }
         }
 
         private void ButtonTagRemove(object sender, EventArgs e)
