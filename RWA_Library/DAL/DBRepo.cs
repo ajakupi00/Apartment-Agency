@@ -432,5 +432,10 @@ namespace RWA_Library.DAL
         {
             SqlHelper.ExecuteNonQuery(CS, nameof(ReserveApartment), apartment, user.FName, user.LName, user.Email, user.PhoneNumber, adults, children, from, to);
         }
+
+        public void DeleteApartmentPicture(int apartmentid, int pictureid)
+        {
+            SqlHelper.ExecuteNonQuery(CS, nameof(DeleteApartmentPicture), apartmentid, pictureid);
+        }
     }
 }

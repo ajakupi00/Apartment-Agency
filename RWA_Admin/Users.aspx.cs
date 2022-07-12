@@ -15,6 +15,10 @@ namespace RWA_Admin
         private IList<User> _users;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["user"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
             LoadData();
         }
 

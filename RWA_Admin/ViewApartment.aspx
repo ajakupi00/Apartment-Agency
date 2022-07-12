@@ -163,6 +163,7 @@
                     <div class="container d-flex flex-column align-items-center" id="repPictureDiv" style="width: 20%;">
                         <img src="<%# Eval(nameof(RWA_Library.Models.ApartmentPicture.SRC)) %>" class="img-thumbnail choosenPicture" alt="Alternate Text" style="width: 100%; height=100%;" />
                         <asp:CheckBox CssClass="m-1" ID="cbChoosenImage" runat="server" OnCheckedChanged="cbChoosenImage_CheckedChanged" AutoPostBack="true" />
+                        <asp:Button Text="Delete" CssClass="m-1 btn btn-outline-danger btnDelPicture" OnClientClick="return ConfirmAlert();" OnClick="DeletePicture_Click" CommandArgument="<%# Eval(nameof(RWA_Library.Models.ApartmentPicture.Id)) %>" runat="server" />
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
@@ -170,7 +171,7 @@
 
         <div class="container d-flex w-100 py-2">
             <div class="container w-50 ">
-                <a ID="btnCancel"  class="btn btn-danger w-100 text-white" data-toggle="modal" data-target="#deleteModal" >Delete</a>
+                <a id="btnCancel" class="btn btn-danger w-100 text-white" data-toggle="modal" data-target="#deleteModal">Delete</a>
             </div>
             <div class="container w-50 ">
                 <asp:Button Text="Save Changes" CssClass="btn btn-success w-100" runat="server" ID="btnSaveApartment" OnClick="btnSaveApartment_Click" />
@@ -206,28 +207,33 @@
         </div>
     </div>
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Are you sure you want to delete this apartment?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Are you sure you want to delete this apartment?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success px-4" data-dismiss="modal">NO</button>
-        <asp:Button Text="YES" type="button" class="btn btn-danger px-4" runat="server" ID="btnDeleteApt" OnClick="btnDeleteApt_Click"  />
-      </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success px-4" data-dismiss="modal">NO</button>
+                    <asp:Button Text="YES" type="button" class="btn btn-danger px-4" runat="server" ID="btnDeleteApt" OnClick="btnDeleteApt_Click" />
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
     <script>
         const myCarousel = new Carousel(document.querySelector(".carousel"), {
         });
 
+        function ConfirmAlert() {
+            let isExecuted = confirm("Are you sure you want to delete this picture?");
+
+            return isExecuted;
+        }
 
 
     </script>

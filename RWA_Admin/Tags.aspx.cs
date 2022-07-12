@@ -18,6 +18,10 @@ namespace RWA_Admin
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["user"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
             _tags = ((DBRepo)Application["database"]).GetAllTags();
             _types = ((DBRepo)Application["database"]).GetAllTagTypes();
             if (!IsPostBack)

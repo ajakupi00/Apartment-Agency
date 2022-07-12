@@ -22,6 +22,10 @@ namespace RWA_Admin
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["user"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
             if (Session["ApartmentID"] == null)
             {
                 Response.Redirect("Apartments.aspx");
@@ -125,6 +129,7 @@ namespace RWA_Admin
                 if (rptRepresentativePictures.Controls[i].Controls[1] is CheckBox cb)
                 {
                     cb.Checked = _pictures[i].IsRepresentative;
+                    if(cb.Checked) rptRepresentativePictures.Controls[i].Controls[3].Visible = false;
                 }
             }
 
@@ -144,6 +149,7 @@ namespace RWA_Admin
                 else if(rptRepresentativePictures.Controls[i].Controls[1] is CheckBox cb && cb.Checked == true)
                 {
                     cb.Enabled = true;
+                    rptRepresentativePictures.Controls[i].Controls[3].Visible = false;
                 }
             }
             
@@ -411,7 +417,10 @@ namespace RWA_Admin
                     }
                     else
                     {
+                        rptRepresentativePictures.Controls[i].Controls[3].Visible = false;
+
                         _pictures[i].IsRepresentative = true;
+                       
                     }
                 }
                 ViewState["images"] = _pictures;
@@ -433,6 +442,16 @@ namespace RWA_Admin
             }
            
             
+        }
+
+        protected void DeletePicture_Click(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            int id = int.Parse(button.CommandArgument);
+            ((DBRepo)Application["database"]).DeleteApartmentPicture(_apartment.Id, id);
+            _pictures = ((DBRepo)Application["database"]).GetPicturesByApartmentID((int)Session["ApartmentID"]);
+            ViewState["images"] = _pictures;
+            LoadData();
         }
     }
 }
