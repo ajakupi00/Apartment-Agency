@@ -1,6 +1,5 @@
 ﻿@using RWA_Library.Models;
 @{
-    string msg = ViewBag.msg as string;
     Apartment apt = ViewBag.apt as Apartment;
     IList<ApartmentPicture> pictures = ViewBag.pictures as IList<ApartmentPicture>;
     ApartmentPicture rPicture = pictures.FirstOrDefault(p => p.IsRepresentative);
@@ -11,12 +10,12 @@
 }
 
 
-@if (msg != "" && msg != null)
-{
-    <div class="alert alert-info" role="alert">
-        @msg
-    </div>
-}
+
+<div id="alert">
+
+</div>
+
+
 
 <h2 class="mx-2 fw-normal">@((lang == "hr") ? apt.Name : apt.NameEng) - @apt.City</h2>
 <div class="d-flex stars">
@@ -106,49 +105,46 @@
 
     <div class="px-5">
         <h2>@RWA_Public.Resources.Lanugage.ContactUs</h2>
-        @using (Html.BeginForm("ReserveApartment", "Query", new { aptid = apt.Id }, FormMethod.Post, null))
-        {
+        <div class="form-group">
+            <label for="fname">@RWA_Public.Resources.Lanugage.FName</label>
+            <input type="text" class="form-control mb-2 m-0" style="width: 400px;" id="fname" name="fname" value="@((user != null) ? user.FName : "")" />
+        </div>
+        <div class="form-group">
+            <label for="lname">@RWA_Public.Resources.Lanugage.LName</label>
+            <input type="text" class="form-control w-100  mb-2" id="lname" name="lname" value="@((user != null) ? user.LName : "")" />
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">@RWA_Public.Resources.Lanugage.Email</label>
+            <input type="email" class="form-control w-100  mb-2" id="email" name="email" value="@((user != null) ? user.Email : "")" />
+        </div>
+        <div class="form-group">
+            <label for="phNum">@RWA_Public.Resources.Lanugage.Phone</label>
+            <input type="tel" class="form-control w-100  mb-2" id="phNum" name="phone" value="@((user != null) ? user.PhoneNumber : "")" />
+        </div>
+        <div class="d-flex justify-content-around">
+            <div>
+                <label for="adults">@RWA_Public.Resources.Lanugage.Adults</label>
+                <input type="number" min="0" class="form-control w-75 m-0" id="adults" name="adults">
+            </div>
+            <div>
+                <label for="children">@RWA_Public.Resources.Lanugage.Children</label>
+                <input type="number" min="0" class="form-control w-75  m-0" id="children" name="children">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="fromDate">@RWA_Public.Resources.Lanugage.From</label>
+            <input type="date" class="form-control mb-2 m-0" name="fromDate" id="fromDate" />
+        </div>
+        <div class="form-group">
+            <label for="toDate">@RWA_Public.Resources.Lanugage.To</label>
+            <input type="date" class="form-control mb-2 m-0" id="toDate" name="toDate" disabled />
+        </div>
+        <button style="display: none" type="submit" id="btnReserve" class="btn btn-primary">@RWA_Public.Resources.Lanugage.Reserve</button>
+        <form method="post" onsubmit="return submitUserForm();">
+            <div class="g-recaptcha" data-sitekey="6LdauMUgAAAAAMvVuJ8VDDQWkXq5ONhhkeeCamg1" data-callback="verifyCaptcha"></div>
+            <div id="g-recaptcha-error"></div>
+        </form>
 
-            <div class="form-group">
-                <label for="fname">@RWA_Public.Resources.Lanugage.FName</label>
-                <input type="text" class="form-control mb-2 m-0" style="width: 400px;" id="fname" name="fname" value="@((user != null) ? user.FName : "")" />
-            </div>
-            <div class="form-group">
-                <label for="lname">@RWA_Public.Resources.Lanugage.LName</label>
-                <input type="text" class="form-control w-100  mb-2" id="lname" name="lname" value="@((user != null) ? user.LName : "")" />
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">@RWA_Public.Resources.Lanugage.Email</label>
-                <input type="email" class="form-control w-100  mb-2" id="email" name="email" value="@((user != null) ? user.Email : "")" />
-            </div>
-            <div class="form-group">
-                <label for="phNum">@RWA_Public.Resources.Lanugage.Phone</label>
-                <input type="tel" class="form-control w-100  mb-2" id="phNum" name="phone" value="@((user != null) ? user.PhoneNumber : "")" />
-            </div>
-            <div class="d-flex justify-content-around">
-                <div>
-                    <label for="adults">@RWA_Public.Resources.Lanugage.Adults</label>
-                    <input type="number" min="0" class="form-control w-75 m-0" id="adults" name="adults">
-                </div>
-                <div>
-                    <label for="children">@RWA_Public.Resources.Lanugage.Children</label>
-                    <input type="number" min="0" class="form-control w-75  m-0" id="children" name="children">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="fromDate">@RWA_Public.Resources.Lanugage.From</label>
-                <input type="date" class="form-control mb-2 m-0" name="fromDate" id="fromDate" />
-            </div>
-            <div class="form-group">
-                <label for="toDate">@RWA_Public.Resources.Lanugage.To</label>
-                <input type="date" class="form-control mb-2 m-0" id="toDate" name="toDate" disabled />
-            </div>
-            <button style="display: none" type="submit" id="btnReserve" class="btn btn-primary">@RWA_Public.Resources.Lanugage.Reserve</button>
-            <form method="post" onsubmit="return submitUserForm();">
-                <div class="g-recaptcha" data-sitekey="6LdauMUgAAAAAMvVuJ8VDDQWkXq5ONhhkeeCamg1" data-callback="verifyCaptcha"></div>
-                <div id="g-recaptcha-error"></div>
-            </form>
-        }
     </div>
 
 
@@ -197,7 +193,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button  id="btnSave" class="btn btn-primary">Save changes</button>
+                    <button id="btnSave" class="btn btn-primary">Save changes</button>
                 </div>
 
             }
@@ -244,10 +240,56 @@
                 success: function () {
                     $('#modalReview').modal('hide');
                     document.getElementById('btnReview').style.display = 'none';
+                    document.getElementById('alert').innerHTML = `<div class="alert alert-info" role="alert" id="reviewAlert">@RWA_Public.Resources.Lanugage.ReviewMsg</div>`;
+                    window.scrollTo(0, 0);
+
+
+                }
+            });
+       });
+
+
+
+        document.getElementById('btnReserve').addEventListener('click', function () {
+            let firstName = document.getElementById('fname').value;
+            let lastName = document.getElementById('lname').value;
+            let email = document.getElementById('email').value;
+            let phone = document.getElementById('phNum').value;
+            let adults = document.getElementById('adults').value;
+            let children = document.getElementById('children').value;
+            let fromDate = document.getElementById('fromDate').value;
+            let toDate = document.getElementById('toDate').value;
+
+            var obj = {
+                aptid: parseInt("@apt.Id"),
+                fname: firstName,
+                lname: lastName,
+                email: email,
+                phone: phone,
+                adults: adults,
+                children: children,
+                fromDate: fromDate,
+                toDate: toDate
+            };
+            $.ajax({
+                url: '/Query/ReserveApartment/',
+                method:  'POST',
+                data: obj,
+                success: function () {
+                    document.getElementById('alert').innerHTML = `<div class="alert alert-info" role="alert" id="reviewAlert">@RWA_Public.Resources.Lanugage.ReserveMsg</div>`;
+                    window.scrollTo(0, 0);
+
+            document.getElementById('adults').value = '';
+            document.getElementById('children').value = '';
+            document.getElementById('fromDate').value = '';
+            document.getElementById('toDate').value = '';
 
                 }
             });
         });
+
+
+
     </script>
 
     <script>
@@ -288,7 +330,7 @@
             }
         });
 
-        
+
 
     });
 
