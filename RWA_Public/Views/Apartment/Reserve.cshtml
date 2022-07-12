@@ -13,16 +13,16 @@
 
 @if (msg != "" && msg != null)
 {
-<div class="alert alert-info" role="alert">
-    @msg
-</div>
+    <div class="alert alert-info" role="alert">
+        @msg
+    </div>
 }
 
 <h2 class="mx-2 fw-normal">@((lang == "hr") ? apt.Name : apt.NameEng) - @apt.City</h2>
 <div class="d-flex stars">
     @for (int i = 0; i < apt.Stars; i++)
     {
-    <i class="fa-solid fa-star"></i>
+        <i class="fa-solid fa-star"></i>
     }
 
 </div>
@@ -46,19 +46,19 @@
             {
                 for (int i = 0; i < tags.Count; i += 2)
                 {
-            <div class="row">
-                @for (int j = 0; j < 2; j++)
+                    <div class="row">
+                        @for (int j = 0; j < 2; j++)
                         {
                             if (lang == "hr")
                             {
-                <span class="col fs-5">• @tags[i + j].Name</span>
+                                <span class="col fs-5">• @tags[i + j].Name</span>
                             }
                             else
                             {
-                <span class="col fs-5">• @tags[i + j].NameEng</span>
+                                <span class="col fs-5">• @tags[i + j].NameEng</span>
                             }
                         }
-            </div>
+                    </div>
                 }
 
 
@@ -69,32 +69,32 @@
                 for (int i = 0; i < tags.Count - 1; i += 2)
                 {
 
-            <div class="row">
-                @for (int j = 0; j < 2; j++)
+                    <div class="row">
+                        @for (int j = 0; j < 2; j++)
                         {
                             if (lang == "hr")
                             {
-                <span class="col fs-5">• @tags[i + j].Name</span>
+                                <span class="col fs-5">• @tags[i + j].Name</span>
                             }
                             else
                             {
-                <span class="col fs-5">• @tags[i + j].NameEng</span>
+                                <span class="col fs-5">• @tags[i + j].NameEng</span>
                             }
 
                         }
-            </div>
+                    </div>
                 }
                 if (lang == "hr")
                 {
-            <div class="row">
-                <span class="col fs-5">• @tags[tags.Count - 1].Name</span>
-            </div>
+                    <div class="row">
+                        <span class="col fs-5">• @tags[tags.Count - 1].Name</span>
+                    </div>
                 }
                 else
                 {
-            <div class="row">
-                <span class="col fs-5">• @tags[tags.Count - 1].NameEng</span>
-            </div>
+                    <div class="row">
+                        <span class="col fs-5">• @tags[tags.Count - 1].NameEng</span>
+                    </div>
                 }
 
 
@@ -106,48 +106,48 @@
 
     <div class="px-5">
         <h2>@RWA_Public.Resources.Lanugage.ContactUs</h2>
-        @using (Html.BeginForm("ReserveApartment", "Query", new { aptid = apt.Id}, FormMethod.Post, null))
+        @using (Html.BeginForm("ReserveApartment", "Query", new { aptid = apt.Id }, FormMethod.Post, null))
         {
 
-        <div class="form-group">
-            <label for="fname">@RWA_Public.Resources.Lanugage.FName</label>
-            <input type="text" class="form-control mb-2 m-0" style="width: 400px;" id="fname" name="fname" value="@((user != null) ? user.FName : "")" />
-        </div>
-        <div class="form-group">
-            <label for="lname">@RWA_Public.Resources.Lanugage.LName</label>
-            <input type="text" class="form-control w-100  mb-2" id="lname" name="lname" value="@((user != null) ? user.LName : "")" />
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail1">@RWA_Public.Resources.Lanugage.Email</label>
-            <input type="email" class="form-control w-100  mb-2" id="email" name="email" value="@((user != null) ? user.Email : "")" />
-        </div>
-        <div class="form-group">
-            <label for="phNum">@RWA_Public.Resources.Lanugage.Phone</label>
-            <input type="tel" class="form-control w-100  mb-2" id="phNum" name="phone" value="@((user != null) ? user.PhoneNumber : "")" />
-        </div>
-        <div class="d-flex justify-content-around">
-            <div>
-                <label for="adults">@RWA_Public.Resources.Lanugage.Adults</label>
-                <input type="number" min="0" class="form-control w-75 m-0" id="adults" name="adults">
+            <div class="form-group">
+                <label for="fname">@RWA_Public.Resources.Lanugage.FName</label>
+                <input type="text" class="form-control mb-2 m-0" style="width: 400px;" id="fname" name="fname" value="@((user != null) ? user.FName : "")" />
             </div>
-            <div>
-                <label for="children">@RWA_Public.Resources.Lanugage.Children</label>
-                <input type="number" min="0" class="form-control w-75  m-0" id="children" name="children">
+            <div class="form-group">
+                <label for="lname">@RWA_Public.Resources.Lanugage.LName</label>
+                <input type="text" class="form-control w-100  mb-2" id="lname" name="lname" value="@((user != null) ? user.LName : "")" />
             </div>
-        </div>
-        <div class="form-group">
-            <label for="fromDate">@RWA_Public.Resources.Lanugage.From</label>
-            <input type="date" class="form-control mb-2 m-0" name="fromDate" id="fromDate" />
-        </div>
-        <div class="form-group">
-            <label for="toDate">@RWA_Public.Resources.Lanugage.To</label>
-            <input type="date" class="form-control mb-2 m-0" id="toDate" name="toDate" disabled />
-        </div>
-        <button style="display: none" type="submit" id="btnReserve" class="btn btn-primary">@RWA_Public.Resources.Lanugage.Reserve</button>
-        <form method="post" onsubmit="return submitUserForm();">
-            <div class="g-recaptcha" data-sitekey="6LdauMUgAAAAAMvVuJ8VDDQWkXq5ONhhkeeCamg1" data-callback="verifyCaptcha"></div>
-            <div id="g-recaptcha-error"></div>
-        </form>
+            <div class="form-group">
+                <label for="exampleInputEmail1">@RWA_Public.Resources.Lanugage.Email</label>
+                <input type="email" class="form-control w-100  mb-2" id="email" name="email" value="@((user != null) ? user.Email : "")" />
+            </div>
+            <div class="form-group">
+                <label for="phNum">@RWA_Public.Resources.Lanugage.Phone</label>
+                <input type="tel" class="form-control w-100  mb-2" id="phNum" name="phone" value="@((user != null) ? user.PhoneNumber : "")" />
+            </div>
+            <div class="d-flex justify-content-around">
+                <div>
+                    <label for="adults">@RWA_Public.Resources.Lanugage.Adults</label>
+                    <input type="number" min="0" class="form-control w-75 m-0" id="adults" name="adults">
+                </div>
+                <div>
+                    <label for="children">@RWA_Public.Resources.Lanugage.Children</label>
+                    <input type="number" min="0" class="form-control w-75  m-0" id="children" name="children">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fromDate">@RWA_Public.Resources.Lanugage.From</label>
+                <input type="date" class="form-control mb-2 m-0" name="fromDate" id="fromDate" />
+            </div>
+            <div class="form-group">
+                <label for="toDate">@RWA_Public.Resources.Lanugage.To</label>
+                <input type="date" class="form-control mb-2 m-0" id="toDate" name="toDate" disabled />
+            </div>
+            <button style="display: none" type="submit" id="btnReserve" class="btn btn-primary">@RWA_Public.Resources.Lanugage.Reserve</button>
+            <form method="post" onsubmit="return submitUserForm();">
+                <div class="g-recaptcha" data-sitekey="6LdauMUgAAAAAMvVuJ8VDDQWkXq5ONhhkeeCamg1" data-callback="verifyCaptcha"></div>
+                <div id="g-recaptcha-error"></div>
+            </form>
         }
     </div>
 
@@ -174,33 +174,32 @@
             </div>
             @if (user != null)
             {
-                using (Html.BeginForm("Review", "Query", new { userid = user.Id, aptid = apt.Id }, FormMethod.Post, null))
-                {
-            <div class="modal-body">
-                <div style="display: block;" id="reviewForm">
-                    <div>
-                        <div class="d-flex flex-column w-100 justify-content-center">
-                            <label class="form-label">@RWA_Public.Resources.Lanugage.Star</label>
-                            <input type="range" class="form-range mw-100 align-self-center"
-                                   min="0" max="5" step="1" value="5" name="stars"
-                                   id="rngComfort" oninput="setLabel('rngComfort', 'comfortRating')">
-                            <label style="color: forestgreen;" class="fs-5 d-block mt-1 text-center" id="comfortRating">5</label>
+
+                <div class="modal-body">
+                    <div style="display: block;" id="reviewForm">
+                        <div>
+                            <div class="d-flex flex-column w-100 justify-content-center">
+                                <label class="form-label">@RWA_Public.Resources.Lanugage.Star</label>
+                                <input type="range" class="form-range mw-100 align-self-center"
+                                       min="0" max="5" step="1" value="5" name="stars"
+                                       id="rngStars" oninput="setLabel('rngStars', 'comfortRating')">
+                                <label style="color: forestgreen;" class="fs-5 d-block mt-1 text-center" id="comfortRating">5</label>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <div class="d-flex flex-column w-100 justify-content-center">
-                            <label class="form-label">@RWA_Public.Resources.Lanugage.Details</label>
-                            <textarea class="form-control" name="details"></textarea>
+                        <div>
+                            <div class="d-flex flex-column w-100 justify-content-center">
+                                <label class="form-label">@RWA_Public.Resources.Lanugage.Details</label>
+                                <textarea class="form-control" name="details" id="detailsReview"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" id="btnSave" class="btn btn-primary">Save changes</button>
-            </div>
-                }
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button  id="btnSave" class="btn btn-primary">Save changes</button>
+                </div>
+
             }
         </div>
     </div>
@@ -227,6 +226,28 @@
             var btn = document.getElementById('btnReserve');
             btn.style.display = "block";
         }
+
+       document.getElementById('btnSave').addEventListener('click', function () {
+            let starsReview = document.getElementById('rngStars').value;
+            let details = document.getElementById('detailsReview').value;
+
+            var obj = {
+                userid: parseInt("@((user != null) ? user.Id : 0)"),
+                aptid: parseInt("@apt.Id"),
+                stars: parseInt(starsReview),
+                details: details
+            };
+            $.ajax({
+                url: '/Query/Review/',
+                method:  'POST',
+                data: obj,
+                success: function () {
+                    $('#modalReview').modal('hide');
+                    document.getElementById('btnReview').style.display = 'none';
+
+                }
+            });
+        });
     </script>
 
     <script>
@@ -267,8 +288,11 @@
             }
         });
 
+        
 
-        });
+    });
+
+
     Fancybox.bind("#grouped-images-1 a", {
         // Your options
     });
@@ -288,6 +312,7 @@
         var input = document.getElementById(inputID).value;
         document.getElementById(labelID).innerHTML = input;
     }
+
 
 
 
