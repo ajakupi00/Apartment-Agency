@@ -223,34 +223,7 @@
             btn.style.display = "block";
         }
 
-       document.getElementById('btnSave').addEventListener('click', function () {
-            let starsReview = document.getElementById('rngStars').value;
-            let details = document.getElementById('detailsReview').value;
-
-            var obj = {
-                userid: parseInt("@((user != null) ? user.Id : 0)"),
-                aptid: parseInt("@apt.Id"),
-                stars: parseInt(starsReview),
-                details: details
-            };
-            $.ajax({
-                url: '/Query/Review/',
-                method:  'POST',
-                data: obj,
-                success: function () {
-                    $('#modalReview').modal('hide');
-                    document.getElementById('btnReview').style.display = 'none';
-                    document.getElementById('alert').innerHTML = `<div class="alert alert-info" role="alert" id="reviewAlert">@RWA_Public.Resources.Lanugage.ReviewMsg</div>`;
-                    window.scrollTo(0, 0);
-
-
-                }
-            });
-       });
-
-
-
-        document.getElementById('btnReserve').addEventListener('click', function () {
+         document.getElementById('btnReserve').addEventListener('click', function () {
             let firstName = document.getElementById('fname').value;
             let lastName = document.getElementById('lname').value;
             let email = document.getElementById('email').value;
@@ -287,6 +260,34 @@
                 }
             });
         });
+
+
+       document.getElementById('btnSave').addEventListener('click', function () {
+            let starsReview = document.getElementById('rngStars').value;
+            let details = document.getElementById('detailsReview').value;
+
+            var obj = {
+                userid: parseInt("@((user != null) ? user.Id : 0)"),
+                aptid: parseInt("@apt.Id"),
+                stars: parseInt(starsReview),
+                details: details
+            };
+            $.ajax({
+                url: '/Query/Review/',
+                method:  'POST',
+                data: obj,
+                success: function () {
+                    $('#modalReview').modal('hide');
+                    document.getElementById('btnReview').style.display = 'none';
+                    document.getElementById('alert').innerHTML = `<div class="alert alert-info" role="alert" id="reviewAlert">@RWA_Public.Resources.Lanugage.ReviewMsg</div>`;
+                    window.scrollTo(0, 0);
+
+
+                }
+            });
+       });
+
+
 
 
 

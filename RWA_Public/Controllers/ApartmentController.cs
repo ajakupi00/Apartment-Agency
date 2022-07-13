@@ -95,7 +95,7 @@ namespace RWA_Public.Controllers
         public JsonResult GetApartments()
         {
             string search = Request.Cookies["search"].Value;
-            var data = apt.ToArray();
+            var data = apt.Where(a => a.Status.Name == "Slobodno").ToArray(); ;
             foreach (Apartment apartment in data)
             {
                 apartment.Representative = _repo.GetPicturesByApartmentID(apartment.Id).FirstOrDefault(p => p.IsRepresentative).SRC;

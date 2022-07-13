@@ -57,7 +57,7 @@ namespace RWA_Public.Controllers
             User user = _repo.AuthUser(username, rwaLib.Models.Cryptography.HashPassword(password));
             if (user is null)
             {
-                throw new Exception("You entered something wrong with your user!");
+                return View("Login");
             }
 
             ViewBag.user = user;
