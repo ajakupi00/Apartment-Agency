@@ -9,6 +9,8 @@ Development of fully functional Apartment Agency using C# ASP .NET framework.
 -- Edit apartment
 
 ![image](https://user-images.githubusercontent.com/76658213/178830640-e02f8c62-176a-49b7-89f0-4709dab082a9.png)
+
+
 ![image](https://user-images.githubusercontent.com/76658213/178830663-4ef24310-5671-41e3-9d63-700ac930d728.png)
 
 -- New apartment
@@ -17,5 +19,15 @@ Development of fully functional Apartment Agency using C# ASP .NET framework.
 
 
 ## Public site
+
+-- Home page
+
+![image](https://user-images.githubusercontent.com/76658213/178831795-01e813ed-1fe3-4171-b21f-a83fa4945af2.png)
+
+-- Reserve page
+
+![image](https://user-images.githubusercontent.com/76658213/178831901-8a685714-90f2-4c68-9df3-a9594238d65f.png)
+
+
 
 By: Arjan Jakupi
