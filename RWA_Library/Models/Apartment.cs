@@ -9,13 +9,7 @@ namespace RWA_Library.Models
     [Serializable]
     public class Apartment : IComparable<Apartment>
     {
-        private int stars;
-        private Random rnd;
-        public Apartment()
-        {
-            rnd = new Random();
-            stars = rnd.Next(1, 6);
-        }
+
         public int Id { get; set; }
         public DateTime CreatedAt{ get; set; }
         public DateTime DeletedAt{ get; set; }
@@ -32,9 +26,7 @@ namespace RWA_Library.Models
         public int BeachDistance{ get; set; }
         public int NumberOfPictures { get; set; }
         public string Representative { get; set; }
-        public int Stars { 
-            get => stars;
-        }
+        public int Stars { get; set; }
 
         public int CompareTo(Apartment other)
         {

@@ -67,15 +67,14 @@
                         for (var i = 0; i < data.length; i++) {
                             console.log(i);
                             console.log(data[i]);
-                            const { Id, Name, NameEng, City, BeachDistance, TotalRooms, MaxAdults, MaxChildren, Price, Representative } = data[i];
+                            const { Id, Name, NameEng, City, BeachDistance, TotalRooms, MaxAdults, MaxChildren, Price, Representative, Stars } = data[i];
                             const { Name: CityName } = City;
                             let filterRoom = "@Request.Cookies["rooms"].Value"
                             let filterChildren = "@Request.Cookies["children"].Value"
                             let filterAdults = "@Request.Cookies["adults"].Value"
                             let filterCity = "@Request.Cookies["city"].Value"
                             let stars = "";
-                            let rnd = Math.floor(1 + Math.random() * (5 - 1 + 1));
-                            for (var j = 0; j < rnd; j++) {
+                            for (var j = 0; j < Stars; j++) {
                                 stars += `<i class="fa-solid fa-star"></i>`
                             }
                             //Svi podaci uneseni

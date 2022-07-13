@@ -40,7 +40,7 @@
     <div class="d-flex align-items-center justify-content-center" id="content" >
         <div class="container d-flex flex-column align-items-center ">
             <h1 class="h1 mb-4">Lost your way?</h1>
-            <p>Sorry, we can't find that page. You'll find loads to explore on the home page.</p>
+            <p id="errMsg" runat="server"></p>
             <span id="error">Error code: <strong>404</strong></span>
             <a class="btn btn-light mt-3" style="border:none; border-radius: 50px; padding-inline: 125px; padding-block: 8px;" href="Login.aspx">Return back</a>
         </div>

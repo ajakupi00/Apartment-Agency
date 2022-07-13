@@ -11,7 +11,7 @@ namespace RWA_Admin
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            errMsg.InnerText = Server.GetLastError().ToString();
         }
     }
 }

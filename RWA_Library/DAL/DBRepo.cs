@@ -150,8 +150,25 @@ namespace RWA_Library.DAL
                 MaxChildren = (int)row[nameof(Apartment.MaxChildren)],
                 TotalRooms = (int)row[nameof(Apartment.TotalRooms)],
                 BeachDistance = (int)row[nameof(Apartment.BeachDistance)],
-                NumberOfPictures = GetNumberOfPicturesByApartmentID(row[nameof(Apartment.Id)])
+                NumberOfPictures = GetNumberOfPicturesByApartmentID(row[nameof(Apartment.Id)]),
+                Stars = ApartmentStars((int)row[nameof(Apartment.Id)])
             };
+        }
+
+        public int ApartmentStars(int id)
+        {
+            var tableApt = SqlHelper.ExecuteDataset(CS, nameof(ApartmentStars), id).Tables[0];
+            if (tableApt.Rows.Count == 0) return 5;
+            DataRow row = tableApt.Rows[0];
+            try
+            {
+                return (int)row[nameof(Apartment.Stars)];
+            }
+            catch (Exception)
+            {
+
+                return 5;
+            }
         }
 
         public IList<Tag> GetAllTags()
@@ -237,7 +254,8 @@ namespace RWA_Library.DAL
                     MaxChildren = (int)row[nameof(Apartment.MaxChildren)],
                     TotalRooms = (int)row[nameof(Apartment.TotalRooms)],
                     BeachDistance = (int)row[nameof(Apartment.BeachDistance)],
-                    NumberOfPictures = GetNumberOfPicturesByApartmentID(row[nameof(Apartment.Id)])
+                    NumberOfPictures = GetNumberOfPicturesByApartmentID(row[nameof(Apartment.Id)]),
+                    Stars = ApartmentStars((int)row[nameof(Apartment.Id)])
                 });
             }
             return apartments;
