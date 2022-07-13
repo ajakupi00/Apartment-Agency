@@ -18,7 +18,10 @@ namespace RWA_Admin
         private IRepo _repo;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["user"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
             if (!IsPostBack)
             {
                 InitList();
@@ -161,11 +164,13 @@ namespace RWA_Admin
             {
                 if (cb.Checked)
                 {
+                    _pictures[i].IsRepresentative = true;
                     checks[i].Checked = false;
                     checks[i].Enabled = false;
                 }
                 else
                 {
+                    _pictures[i].IsRepresentative = false;
                     checks[i].Checked = false;
                     checks[i].Enabled = true;
                 }
@@ -214,7 +219,7 @@ namespace RWA_Admin
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (IsValid)
+            if (IsValid && _pictures.ToList().Find(p => p.IsRepresentative) != null )
             {
                 City city = ((DBRepo)Application["database"]).GetCityByName(txtCity.Text);
                 int bd;
